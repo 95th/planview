@@ -15,6 +15,6 @@ export class AuthService {
         params: { username: info.username },
       })
       .toPromise();
-    return users && users.length === 1 && users[0].password === info.password;
+    return users.length === 1 && users[0].password === info.password;
   }
 }
