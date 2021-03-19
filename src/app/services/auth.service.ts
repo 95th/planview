@@ -11,7 +11,9 @@ export class AuthService {
 
   async loginUser(info: LoginInfo): Promise<boolean> {
     let users = await this.http
-      .get<User[]>('/api/users', { params: { username: info.username } })
+      .get<User[]>('/api/users', {
+        params: { username: info.username },
+      })
       .toPromise();
     return users && users.length === 1 && users[0].password === info.password;
   }
