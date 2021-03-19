@@ -29,7 +29,10 @@ export class RegistrationComponent implements OnInit {
           country: ['', Validators.pattern(/[a-zA-Z ]/)],
           zip: [''],
         }),
-        username: [''],
+        username: [
+          '',
+          [Validators.pattern(/[a-zA-Z0-9]/), Validators.minLength(3)],
+        ],
         password: ['', Validators.minLength(6)],
         password_confirmation: [''],
       },

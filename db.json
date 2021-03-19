@@ -1,0 +1,20 @@
+{
+  "users": [
+    {
+      "first_name": "Admin",
+      "last_name": "User",
+      "email": "user@admin.com",
+      "date_of_birth": "1990-12-04",
+      "address": {
+        "line_1": "",
+        "line_2": "",
+        "city": "",
+        "state": "",
+        "country": "",
+        "zip": ""
+      },
+      "username": "admin",
+      "password": "admin"
+    }
+  ]
+}
