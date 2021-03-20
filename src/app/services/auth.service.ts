@@ -13,6 +13,9 @@ export class AuthService {
   constructor(private http: HttpClient) {}
 
   async loginUser(info: LoginInfo): Promise<boolean> {
+    this.role = 'regular';
+    this.username = '';
+
     let user = await this.http
       .get<User | undefined>(`/api/users/${info.username}`)
       .toPromise();

@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 
 @Component({
-  selector: 'app-registration',
+  selector: 'pv-registration',
   templateUrl: './registration.component.html',
   styleUrls: ['./registration.component.scss'],
 })

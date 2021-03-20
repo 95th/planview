@@ -14,13 +14,13 @@ const routes: Routes = [
     path: 'admin',
     loadChildren: () =>
       import('./admin/admin.module').then((m) => m.AdminModule),
-    canActivate: [AdminAuthGuard],
+    // canActivate: [AdminAuthGuard],
   },
   {
     path: 'planview',
     loadChildren: () =>
       import('./planview/planview.module').then((m) => m.PlanviewModule),
-    canActivate: [AuthGuard],
+    // canActivate: [AuthGuard],
   },
 ];
 
