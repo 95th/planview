@@ -14,7 +14,8 @@
         "zip": ""
       },
       "username": "admin",
-      "password": "admin"
+      "password": "admin",
+      "role": "admin"
     }
   ]
 }

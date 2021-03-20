@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 
@@ -28,10 +28,15 @@ export class LoginComponent implements OnInit {
   async performLogin() {
     this.invalidLogin = false;
     let success = await this.authService.loginUser(this.form.value);
-    if (success) {
-      await this.router.navigate(['/dashboard']);
-    } else {
+    if (!success) {
       this.invalidLogin = true;
+      return;
+    }
+
+    if (this.authService.isAdmin()) {
+      await this.router.navigateByUrl('/admin/dashboard');
+    } else {
+      await this.router.navigateByUrl('/planview/dashboard');
     }
   }
 }

@@ -1,3 +1,5 @@
+export type UserRole = 'admin' | 'regular';
+
 export interface User {
   first_name: string;
   last_name: string;
@@ -13,4 +15,5 @@ export interface User {
   };
   username: string;
   password: string;
+  role: UserRole;
 }
