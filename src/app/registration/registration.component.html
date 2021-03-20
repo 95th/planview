@@ -1,100 +1,85 @@
-<div class="wrapper">
-    <div id="registration-form">
-        <h5>New PlanView registration</h5>
-        <br>
-        <form role="form" [formGroup]="form" (ngSubmit)="onSubmit()">
-            <div class="row">
-                <div class="col-xs-6 col-sm-6 col-md-6">
-                    <div class="form-group">
-                        <label for="first_name">First name</label>
-                        <input type="text" formControlName="first_name" id="first_name" class="form-control input-sm"
-                            placeholder="First Name" required>
-                    </div>
-                </div>
-                <div class="col-xs-6 col-sm-6 col-md-6">
-                    <div class="form-group">
-                        <label for="last_name">Last name</label>
-                        <input type="text" formControlName="last_name" id="last_name" class="form-control input-sm"
-                            placeholder="Last Name" required>
-                    </div>
-                </div>
+<mat-card>
+    <mat-card-title>Create your account</mat-card-title>
+    <form role="form" [formGroup]="form" (ngSubmit)="onSubmit()">
+        <div>
+            <mat-form-field>
+                <mat-label>First name</mat-label>
+                <input matInput type="text" formControlName="first_name" placeholder="First Name" required>
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Last name</mat-label>
+                <input matInput type="text" formControlName="last_name" placeholder="Last Name" required>
+            </mat-form-field>
+        </div>
+
+        <div>
+            <mat-form-field>
+                <mat-label>Email Address</mat-label>
+                <input matInput formControlName="email" placeholder="Email Address" required>
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Date of birth</mat-label>
+                <input matInput formControlName="date_of_birth" [matDatepicker]="picker" required>
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+        </div>
+
+        <div formGroupName="address">
+            <div>
+                <mat-form-field>
+                    <mat-label>Address line 1</mat-label>
+                    <input matInput formControlName="line_1">
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-label>Address line 2</mat-label>
+                    <input matInput formControlName="line_2">
+                </mat-form-field>
             </div>
 
-            <div class="form-group">
-                <label for="date_of_birth">Date of Birth</label>
-                <input type="date" formControlName="date_of_birth" id="date_of_birth" class="form-control input-sm"
-                    required>
+            <div>
+                <mat-form-field>
+                    <mat-label>City</mat-label>
+                    <input matInput formControlName="city" required>
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-label>State</mat-label>
+                    <input matInput formControlName="state" required>
+                </mat-form-field>
             </div>
 
-            <div class="form-group">
-                <label for="email">Email Address</label>
-                <input type="email" formControlName="email" id="email" class="form-control input-sm"
-                    placeholder="Email Address" required>
+            <div>
+                <mat-form-field>
+                    <mat-label>Country</mat-label>
+                    <input matInput formControlName="country" required>
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-label>Zip code</mat-label>
+                    <input matInput formControlName="zip" required>
+                </mat-form-field>
             </div>
+        </div>
 
-            <fieldset formGroupName="address">
-                <legend class="col-form-label">Address</legend>
-                <div class="form-group">
-                    <input type="text" formControlName="line_1" id="address_line_1" class="form-control input-sm"
-                        placeholder="Address line 1">
-                </div>
-                <div class="form-group">
-                    <input type="text" formControlName="line_2" id="address_line_2" class="form-control input-sm"
-                        placeholder="Address line 2">
-                </div>
-                <div class="row">
-                    <div class="col-xs-6 col-sm-6 col-md-6">
-                        <div class="form-group">
-                            <input type="text" formControlName="city" id="city" class="form-control input-sm"
-                                placeholder="City" required>
-                        </div>
-                    </div>
-                    <div class="col-xs-6 col-sm-6 col-md-6">
-                        <div class="form-group">
-                            <input type="text" formControlName="state" id="state" class="form-control input-sm"
-                                placeholder="State" required>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-xs-6 col-sm-6 col-md-6">
-                        <div class="form-group">
-                            <input type="text" formControlName="country" id="country" class="form-control input-sm"
-                                placeholder="Country" required>
-                        </div>
-                    </div>
-                    <div class="col-xs-6 col-sm-6 col-md-6">
-                        <div class="form-group">
-                            <input type="text" formControlName="zip" id="zip" class="form-control input-sm"
-                                placeholder="Zip" required>
-                        </div>
-                    </div>
-                </div>
-            </fieldset>
+        <div>
+            <mat-form-field>
+                <mat-label>Username</mat-label>
+                <input matInput formControlName="id" required>
+            </mat-form-field>
+        </div>
 
-            <div class="form-group">
-                <label for="username">Username</label>
-                <input type="text" formControlName="id" id="username" class="form-control input-sm"
-                    placeholder="Username" required>
-            </div>
+        <div>
+            <mat-form-field>
+                <mat-label>Password</mat-label>
+                <input matInput type="password" formControlName="password" required>
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Confirm password</mat-label>
+                <input matInput type="password" formControlName="password_confirmation" required>
+            </mat-form-field>
+        </div>
 
-            <div class="row">
-                <div class="col-xs-6 col-sm-6 col-md-6">
-                    <div class="form-group">
-                        <input type="password" formControlName="password" id="password" class="form-control input-sm"
-                            placeholder="Password" required>
-                    </div>
-                </div>
-                <div class="col-xs-6 col-sm-6 col-md-6">
-                    <div class="form-group">
-                        <input type="password" formControlName="password_confirmation" id="password_confirmation"
-                            class="form-control input-sm" placeholder="Confirm Password" required>
-                    </div>
-                </div>
-            </div>
+        <p *ngIf="registrationFailed" class="error">Failed to register: {{ this.form.value.id }}</p>
 
-            <p *ngIf="registrationFailed" class="text-danger">Failed to register: {{ this.form.value.id }}</p>
-            <input type="submit" value="Register" class="btn btn-info btn-block" [disabled]="!form.valid">
-        </form>
-    </div>
-</div>
+        <button mat-raised-button type="submit" [disabled]="!form.valid">Register</button>
+    </form>
+</mat-card>

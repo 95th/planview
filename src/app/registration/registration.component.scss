@@ -1,15 +1,22 @@
-.wrapper {
+:host {
   display: flex;
-  flex-flow: column nowrap;
-  justify-content: center;
   align-items: center;
-  padding: 20px;
+  flex-flow: column nowrap;
+  margin-top: 10px;
+}
 
-  #registration-form {
-    width: 450px;
-    padding: 30px;
-    border-radius: 4px;
-    -webkit-box-shadow: 0 30px 60px 0 rgba(0, 0, 0, 0.3);
-    box-shadow: 0 30px 60px 0 rgba(0, 0, 0, 0.3);
-  }
+.mat-form-field {
+  min-width: 300px;
+  margin: 10px;
+}
+
+button {
+  margin: 10px;
+}
+
+.error {
+  padding: 16px;
+  width: 300px;
+  color: white;
+  background-color: red;
 }

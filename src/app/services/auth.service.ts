@@ -16,15 +16,18 @@ export class AuthService {
     this.role = 'regular';
     this.username = '';
 
-    let user = await this.http
-      .get<User | undefined>(`/api/users/${info.username}`)
-      .toPromise();
+    try {
+      // I know it's bad but we dont have a real backend here.
+      let user = await this.http
+        .get<User>(`/api/users/${info.username}`)
+        .toPromise();
 
-    if (user && user.password === info.password) {
-      this.role = user.role;
-      this.username = info.username;
-      return true;
-    }
+      if (user && user.password === info.password) {
+        this.role = user.role;
+        this.username = info.username;
+        return true;
+      }
+    } catch (err) {}
 
     return false;
   }

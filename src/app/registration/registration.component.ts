@@ -27,7 +27,7 @@ export class RegistrationComponent implements OnInit {
         first_name: ['', Validators.pattern(/[a-zA-Z ]/)],
         last_name: ['', Validators.pattern(/[a-zA-Z ]/)],
         date_of_birth: ['', this.checkPastDate],
-        email: [''],
+        email: ['', Validators.email],
         address: this.fb.group({
           line_1: [''],
           line_2: [''],
