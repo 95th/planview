@@ -1,0 +1,19 @@
+<div class="card" style="width: 30rem;">
+    <div class="card-body">
+        <h5 class="card-title">Inbox</h5>
+        <div class="card-text">
+            <ul class="list-group" *ngIf="messages.length; else noMessages">
+                <li class="list-group-item" *ngFor="let m of messages">
+                    <div class="d-flex w-100 justify-content-between">
+                        <h6 class="mb-1">{{ m.subject }}</h6>
+                        <small class="text-muted">{{ m.date | date }}</small>
+                    </div>
+                    <small class="text-muted">{{ m.sender }}</small>
+                </li>
+            </ul>
+            <ng-template #noMessages>
+                <p>No messages</p>
+            </ng-template>
+        </div>
+    </div>
+</div>
