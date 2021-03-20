@@ -13,7 +13,7 @@ export interface User {
     country: string;
     zip: string;
   };
-  username: string;
+  id: string;
   password: string;
   role: UserRole;
 }

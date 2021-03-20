@@ -22,7 +22,6 @@ const routes: Routes = [
       import('./planview/planview.module').then((m) => m.PlanviewModule),
     canActivate: [AuthGuard],
   },
-  { path: '**', redirectTo: '' },
 ];
 
 @NgModule({

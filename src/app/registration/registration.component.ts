@@ -5,6 +5,8 @@ import {
   Validators,
   AbstractControl,
 } from '@angular/forms';
+import { Router } from '@angular/router';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-registration',
@@ -13,8 +15,13 @@ import {
 })
 export class RegistrationComponent implements OnInit {
   form: FormGroup;
+  registrationFailed: boolean = false;
 
-  constructor(private fb: FormBuilder) {
+  constructor(
+    private fb: FormBuilder,
+    private authService: AuthService,
+    private router: Router
+  ) {
     this.form = this.fb.group(
       {
         first_name: ['', Validators.pattern(/[a-zA-Z ]/)],
@@ -29,10 +36,7 @@ export class RegistrationComponent implements OnInit {
           country: ['', Validators.pattern(/[a-zA-Z ]/)],
           zip: [''],
         }),
-        username: [
-          '',
-          [Validators.pattern(/[a-zA-Z0-9]/), Validators.minLength(3)],
-        ],
+        id: ['', [Validators.pattern(/[a-zA-Z0-9]/), Validators.minLength(3)]],
         password: ['', Validators.minLength(6)],
         password_confirmation: [''],
       },
@@ -42,8 +46,20 @@ export class RegistrationComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  onSubmit() {
-    console.log(this.form.value);
+  async onSubmit() {
+    try {
+      this.registrationFailed = false;
+      let user = await this.authService.createUser(this.form.value);
+
+      await this.authService.loginUser({
+        username: user.id,
+        password: user.password,
+      });
+
+      await this.router.navigateByUrl('/planview/dashboard');
+    } catch (err) {
+      this.registrationFailed = true;
+    }
   }
 
   private checkPasswords(form: AbstractControl) {

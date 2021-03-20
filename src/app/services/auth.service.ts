@@ -13,19 +13,21 @@ export class AuthService {
   constructor(private http: HttpClient) {}
 
   async loginUser(info: LoginInfo): Promise<boolean> {
-    let users = await this.http
-      .get<User[]>('/api/users', {
-        params: { username: info.username },
-      })
+    let user = await this.http
+      .get<User | undefined>(`/api/users/${info.username}`)
       .toPromise();
 
-    if (users.length === 1 && users[0].password === info.password) {
-      this.role = users[0].role;
+    if (user && user.password === info.password) {
+      this.role = user.role;
       this.username = info.username;
       return true;
     }
 
     return false;
+  }
+
+  async createUser(user: User): Promise<User> {
+    return await this.http.post<User>('/api/users', user).toPromise();
   }
 
   isLoggedIn(): boolean {

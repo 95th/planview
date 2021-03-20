@@ -13,9 +13,26 @@
         "country": "",
         "zip": ""
       },
-      "username": "admin",
+      "id": "admin",
       "password": "admin",
       "role": "admin"
+    },
+    {
+      "first_name": "Gurwinder",
+      "last_name": "Singh",
+      "date_of_birth": "2021-03-05",
+      "email": "vargwin@gmail.com",
+      "address": {
+        "line_1": "",
+        "line_2": "",
+        "city": "Sangrur",
+        "state": "Punjab",
+        "country": "India",
+        "zip": "148001"
+      },
+      "id": "vargwin",
+      "password": "klklkl",
+      "password_confirmation": "klklkl"
     }
   ]
 }
