@@ -16,4 +16,6 @@ export interface User {
   id: string;
   password: string;
   role: UserRole;
+  locked: boolean;
+  failed_tries: number;
 }

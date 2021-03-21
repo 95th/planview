@@ -13,8 +13,8 @@
                     <input matInput type="password" placeholder="Password" formControlName="password" required>
                 </mat-form-field>
             </p>
-            <p *ngIf="invalidLogin" class="error">
-                Username or password is incorrect.
+            <p *ngIf="loginError" class="error">
+                {{ loginError }}
             </p>
             <div class="button">
                 <button type="submit" mat-button [disabled]="form.invalid">Login</button>

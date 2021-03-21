@@ -10,6 +10,7 @@ export class MessagesComponent implements OnInit {
   messages: Message[] = [
     {
       sender: 'admin',
+      recipient: 'vargwin',
       subject: 'the data',
       body: 'Whats up',
       date: '2020-01-21',

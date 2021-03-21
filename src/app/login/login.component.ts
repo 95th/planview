@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AuthService } from '../services/auth.service';
+import { AuthService, LoginStatus } from '../services/auth.service';
 
 @Component({
   selector: 'pv-login',
@@ -10,7 +10,7 @@ import { AuthService } from '../services/auth.service';
 })
 export class LoginComponent implements OnInit {
   form: FormGroup;
-  invalidLogin: boolean = false;
+  loginError: string = '';
 
   constructor(
     private fb: FormBuilder,
@@ -26,17 +26,22 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {}
 
   async performLogin() {
-    this.invalidLogin = false;
-    let success = await this.authService.loginUser(this.form.value);
-    if (!success) {
-      this.invalidLogin = true;
-      return;
-    }
-
-    if (this.authService.isAdmin()) {
-      await this.router.navigateByUrl('/admin/dashboard');
-    } else {
-      await this.router.navigateByUrl('/planview/dashboard');
+    this.loginError = '';
+    let status = await this.authService.loginUser(this.form.value);
+    switch (status) {
+      case LoginStatus.Ok:
+        if (this.authService.isAdmin()) {
+          await this.router.navigateByUrl('/admin/dashboard');
+        } else {
+          await this.router.navigateByUrl('/planview/dashboard');
+        }
+        break;
+      case LoginStatus.Failed:
+        this.loginError = 'Incorrect username or password';
+        break;
+      case LoginStatus.Locked:
+        this.loginError = 'User is locked. Please contact the adminitrator';
+        break;
     }
   }
 }

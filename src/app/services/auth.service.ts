@@ -3,6 +3,12 @@ import { Injectable } from '@angular/core';
 import { LoginInfo } from '../model/login-info';
 import { User, UserRole } from '../model/user';
 
+export enum LoginStatus {
+  Ok,
+  Failed,
+  Locked,
+}
+
 @Injectable({
   providedIn: 'root',
 })
@@ -12,7 +18,7 @@ export class AuthService {
 
   constructor(private http: HttpClient) {}
 
-  async loginUser(info: LoginInfo): Promise<boolean> {
+  async loginUser(info: LoginInfo): Promise<LoginStatus> {
     this.role = 'regular';
     this.username = '';
 
@@ -22,14 +28,25 @@ export class AuthService {
         .get<User>(`/api/users/${info.username}`)
         .toPromise();
 
-      if (user && user.password === info.password) {
+      if (!user.locked && user.password === info.password) {
         this.role = user.role;
         this.username = info.username;
-        return true;
+        return LoginStatus.Ok;
+      }
+
+      user.failed_tries++;
+      if (user.failed_tries >= 3) {
+        user.locked = true;
+      }
+
+      await this.http.put(`/api/users/${user.id}`, user).toPromise();
+
+      if (user.locked) {
+        return LoginStatus.Locked;
       }
     } catch (err) {}
 
-    return false;
+    return LoginStatus.Failed;
   }
 
   async createUser(user: User): Promise<User> {

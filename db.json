@@ -15,7 +15,9 @@
       },
       "id": "admin",
       "password": "admin",
-      "role": "admin"
+      "role": "admin",
+      "locked": false,
+      "failed_tries": 0
     },
     {
       "first_name": "Gurwinder",
@@ -32,7 +34,9 @@
       },
       "id": "vargwin",
       "password": "klklkl",
-      "password_confirmation": "klklkl"
+      "password_confirmation": "klklkl",
+      "locked": true,
+      "failed_tries": 3
     }
   ]
 }
