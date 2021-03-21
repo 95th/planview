@@ -42,6 +42,8 @@ export class RegistrationComponent implements OnInit {
       },
       { validators: this.checkPasswords }
     );
+
+    this.form.valueChanges.subscribe(() => (this.registrationFailed = false));
   }
 
   ngOnInit(): void {}

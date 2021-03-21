@@ -1,8 +1,20 @@
+@keyframes loading {
+  0% {
+    margin-top: 100px;
+    opacity: 0;
+  }
+  100% {
+    margin-top: 10px;
+    opacity: 1;
+  }
+}
+
 :host {
   display: flex;
   align-items: center;
   flex-flow: column nowrap;
   margin-top: 10px;
+  animation: loading ease 1s;
 }
 
 .mat-form-field {
