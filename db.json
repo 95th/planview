@@ -35,8 +35,17 @@
       "id": "vargwin",
       "password": "klklkl",
       "password_confirmation": "klklkl",
-      "locked": true,
-      "failed_tries": 3
+      "locked": false,
+      "failed_tries": 0
+    }
+  ],
+  "messages": [
+    {
+      "sender": "admin",
+      "recipient": "vargwin",
+      "subject": "the data",
+      "body": "Whats up",
+      "date": "2020-01-21"
     }
   ]
 }

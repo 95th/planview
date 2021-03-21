@@ -14,7 +14,7 @@ export enum LoginStatus {
 })
 export class AuthService {
   private role: UserRole = 'regular';
-  private username: string = '';
+  username: string = '';
 
   constructor(private http: HttpClient) {}
 
@@ -29,6 +29,11 @@ export class AuthService {
         .toPromise();
 
       if (!user.locked && user.password === info.password) {
+        if (user.failed_tries > 0) {
+          user.failed_tries = 0;
+          await this.http.put(`/api/users/${user.id}`, user).toPromise();
+        }
+
         this.role = user.role;
         this.username = info.username;
         return LoginStatus.Ok;

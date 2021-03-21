@@ -19,7 +19,7 @@ export class RegistrationComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private authService: AuthService,
+    private auth: AuthService,
     private router: Router
   ) {
     this.form = this.fb.group(
@@ -51,9 +51,9 @@ export class RegistrationComponent implements OnInit {
   async onSubmit() {
     try {
       this.registrationFailed = false;
-      let user = await this.authService.createUser(this.form.value);
+      let user = await this.auth.createUser(this.form.value);
 
-      await this.authService.loginUser({
+      await this.auth.loginUser({
         username: user.id,
         password: user.password,
       });

@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Message } from 'src/app/model/message';
+import { MessageService } from 'src/app/services/message.service';
 
 @Component({
   selector: 'pv-messages',
@@ -7,17 +8,11 @@ import { Message } from 'src/app/model/message';
   styleUrls: ['./messages.component.scss'],
 })
 export class MessagesComponent implements OnInit {
-  messages: Message[] = [
-    {
-      sender: 'admin',
-      recipient: 'vargwin',
-      subject: 'the data',
-      body: 'Whats up',
-      date: '2020-01-21',
-    },
-  ];
+  messages: Message[] = [];
 
-  constructor() {}
+  constructor(private msgService: MessageService) {}
 
-  ngOnInit(): void {}
+  async ngOnInit() {
+    this.messages = await this.msgService.getMessages();
+  }
 }

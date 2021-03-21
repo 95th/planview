@@ -14,7 +14,7 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private authService: AuthService,
+    private auth: AuthService,
     private router: Router
   ) {
     this.form = this.fb.group({
@@ -27,10 +27,10 @@ export class LoginComponent implements OnInit {
 
   async performLogin() {
     this.loginError = '';
-    let status = await this.authService.loginUser(this.form.value);
+    let status = await this.auth.loginUser(this.form.value);
     switch (status) {
       case LoginStatus.Ok:
-        if (this.authService.isAdmin()) {
+        if (this.auth.isAdmin()) {
           await this.router.navigateByUrl('/admin/dashboard');
         } else {
           await this.router.navigateByUrl('/planview/dashboard');
