@@ -1,6 +1,6 @@
 @keyframes loading {
   0% {
-    margin-left: 100px;
+    transform: scale(0.9);
     opacity: 0;
   }
 }
@@ -10,7 +10,7 @@
   align-items: center;
   flex-flow: column nowrap;
   margin-top: 10px;
-  animation: loading ease 1s;
+  animation: loading ease 0.4s;
 }
 
 .mat-form-field {
