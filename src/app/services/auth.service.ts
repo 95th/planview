@@ -54,6 +54,11 @@ export class AuthService {
     return LoginStatus.Failed;
   }
 
+  async logoutUser() {
+    this.role = 'regular';
+    this.username = '';
+  }
+
   async createUser(user: User): Promise<User> {
     return await this.http.post<User>('/api/users', user).toPromise();
   }
