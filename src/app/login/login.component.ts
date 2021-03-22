@@ -30,17 +30,13 @@ export class LoginComponent implements OnInit {
     let status = await this.auth.loginUser(this.form.value);
     switch (status) {
       case LoginStatus.Ok:
-        if (this.auth.isAdmin()) {
-          await this.router.navigateByUrl('/admin/dashboard');
-        } else {
-          await this.router.navigateByUrl('/planview/dashboard');
-        }
+        await this.router.navigateByUrl('/planview/dashboard');
         break;
       case LoginStatus.Failed:
         this.loginError = 'Incorrect username or password';
         break;
       case LoginStatus.Locked:
-        this.loginError = 'User is locked. Please contact the adminitrator';
+        this.loginError = 'User is locked. Please contact the administrator';
         break;
     }
   }

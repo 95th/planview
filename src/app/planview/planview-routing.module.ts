@@ -11,6 +11,12 @@ const routes: Routes = [
     children: [
       { path: 'dashboard', component: DashboardComponent },
       { path: 'send-message', component: SendMessageComponent },
+      {
+        path: 'admin',
+        loadChildren: () =>
+          import('./admin/admin.module').then((m) => m.AdminModule),
+        // canActivate: [AdminAuthGuard],
+      },
       { path: '**', redirectTo: 'dashboard' },
     ],
   },

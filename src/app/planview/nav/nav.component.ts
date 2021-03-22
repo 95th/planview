@@ -8,20 +8,20 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./nav.component.scss'],
 })
 export class NavComponent implements OnInit {
-  links = [
-    {
-      url: 'dashboard',
-      label: 'Home',
-    },
-    {
-      url: 'send-message',
-      label: 'New Message',
-    },
-  ];
+  links: { url: string; label: string }[] = [];
 
   constructor(private auth: AuthService, private router: Router) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.links = [
+      { url: 'dashboard', label: 'Home' },
+      { url: 'send-message', label: 'New Message' },
+    ];
+
+    if (this.auth.isAdmin()) {
+      this.links.push({ url: 'admin/dashboard', label: 'Admin Dashboard' });
+    }
+  }
 
   async logout() {
     await this.auth.logoutUser();
