@@ -41,11 +41,20 @@
   ],
   "messages": [
     {
+      "id": 1,
       "sender": "admin",
       "recipient": "vargwin",
       "subject": "the data",
       "body": "Whats up",
       "date": "2020-01-21"
+    },
+    {
+      "id": 2,
+      "recipient": "admin",
+      "sender": "vargwin",
+      "subject": "asdas",
+      "body": "asd",
+      "date": "Mon, 22 Mar 2021 15:33:21 GMT"
     }
   ]
 }

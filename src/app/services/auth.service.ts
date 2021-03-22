@@ -63,6 +63,11 @@ export class AuthService {
     return await this.http.post<User>('/api/users', user).toPromise();
   }
 
+  async getUsers(): Promise<string[]> {
+    const users = await this.http.get<User[]>('/api/users').toPromise();
+    return users.map((u) => u.id).filter((u) => u !== this.username);
+  }
+
   isLoggedIn(): boolean {
     return this.username ? true : false;
   }

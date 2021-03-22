@@ -7,6 +7,7 @@ import { HomeComponent } from './home/home.component';
 import { MessagesComponent } from './dashboard/messages/messages.component';
 import { SendMessageComponent } from './send-message/send-message.component';
 import { ImportsModule } from '../imports/imports.module';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -16,6 +17,11 @@ import { ImportsModule } from '../imports/imports.module';
     MessagesComponent,
     SendMessageComponent,
   ],
-  imports: [CommonModule, PlanviewRoutingModule, ImportsModule],
+  imports: [
+    CommonModule,
+    PlanviewRoutingModule,
+    ImportsModule,
+    ReactiveFormsModule,
+  ],
 })
 export class PlanviewModule {}

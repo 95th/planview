@@ -20,4 +20,8 @@ export class MessageService {
       })
       .toPromise();
   }
+
+  async send(message: Message) {
+    await this.http.post('/api/messages', message).toPromise();
+  }
 }
