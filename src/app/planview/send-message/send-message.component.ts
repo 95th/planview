@@ -3,13 +3,10 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'pv-send-message',
   templateUrl: './send-message.component.html',
-  styleUrls: ['./send-message.component.scss']
+  styleUrls: ['./send-message.component.scss'],
 })
 export class SendMessageComponent implements OnInit {
+  constructor() {}
 
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
+  ngOnInit(): void {}
 }

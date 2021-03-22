@@ -16,7 +16,6 @@ export class NavComponent implements OnInit {
       label: 'New Message',
     },
   ];
-  activeLink: string = 'dashboard';
 
   constructor() {}
 

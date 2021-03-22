@@ -1,6 +1,13 @@
-<nav mat-tab-nav-bar backgroundColor="primary">
-    <a *ngFor="let link of links" matTabLink [routerLink]="link.url" (click)="activeLink = link.url"
-        [active]="activeLink == link.url">
-        {{ link.label }}
-    </a>
+<nav mat-tab-nav-bar>
+  <span>PlanView</span>
+  <a
+    *ngFor="let link of links"
+    matTabLink
+    [routerLink]="link.url"
+    routerLinkActive
+    #route="routerLinkActive"
+    [active]="route.isActive"
+  >
+    {{ link.label }}
+  </a>
 </nav>

@@ -10,7 +10,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTabsModule } from '@angular/material/tabs';
 
-const modules = [
+const MODULES = [
   MatButtonModule,
   MatCardModule,
   MatFormFieldModule,
@@ -24,7 +24,7 @@ const modules = [
 ];
 
 @NgModule({
-  imports: modules,
-  exports: modules,
+  imports: MODULES,
+  exports: MODULES,
 })
 export class ImportsModule {}
