@@ -1,10 +1,6 @@
-<nav class="navbar navbar-expand navbar-light bg-light">
-    <span class="navbar-brand">PlanView</span>
-
-    <div class="navbar" id="navbarSupportedContent">
-        <div class="navbar-nav">
-            <a class="nav-item nav-link" routerLink="dashboard" routerLinkActive="active">Home</a>
-            <a class="nav-item nav-link" routerLink="send-message" routerLinkActive="active">Send Message</a>
-        </div>
-    </div>
+<nav mat-tab-nav-bar backgroundColor="primary">
+    <a *ngFor="let link of links" matTabLink [routerLink]="link.url" (click)="activeLink = link.url"
+        [active]="activeLink == link.url">
+        {{ link.label }}
+    </a>
 </nav>

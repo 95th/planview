@@ -6,6 +6,7 @@ import { NavComponent } from './nav/nav.component';
 import { HomeComponent } from './home/home.component';
 import { MessagesComponent } from './dashboard/messages/messages.component';
 import { SendMessageComponent } from './send-message/send-message.component';
+import { ImportsModule } from '../imports/imports.module';
 
 @NgModule({
   declarations: [
@@ -15,6 +16,6 @@ import { SendMessageComponent } from './send-message/send-message.component';
     MessagesComponent,
     SendMessageComponent,
   ],
-  imports: [CommonModule, PlanviewRoutingModule],
+  imports: [CommonModule, PlanviewRoutingModule, ImportsModule],
 })
 export class PlanviewModule {}

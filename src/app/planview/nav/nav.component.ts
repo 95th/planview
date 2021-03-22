@@ -6,6 +6,18 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./nav.component.scss'],
 })
 export class NavComponent implements OnInit {
+  links = [
+    {
+      url: 'dashboard',
+      label: 'Home',
+    },
+    {
+      url: 'send-message',
+      label: 'New Message',
+    },
+  ];
+  activeLink: string = 'dashboard';
+
   constructor() {}
 
   ngOnInit(): void {}
