@@ -21,7 +21,6 @@ import { ImportsModule } from './imports/imports.module';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    ReactiveFormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
     ImportsModule,

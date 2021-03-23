@@ -15,8 +15,10 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatListModule } from '@angular/material/list';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { ReactiveFormsModule } from '@angular/forms';
 
 const MODULES = [
+  ReactiveFormsModule,
   MatButtonModule,
   MatCardModule,
   MatFormFieldModule,
