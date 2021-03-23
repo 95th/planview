@@ -13,6 +13,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatListModule } from '@angular/material/list';
 
 const MODULES = [
   MatButtonModule,
@@ -29,6 +30,7 @@ const MODULES = [
   MatChipsModule,
   MatAutocompleteModule,
   MatSnackBarModule,
+  MatListModule,
 ];
 
 @NgModule({
