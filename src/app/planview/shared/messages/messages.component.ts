@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { Message } from 'src/app/model/message';
 import { MessageService } from 'src/app/services/message.service';
+import { ShowMessageComponent } from '../show-message/show-message.component';
 
 @Component({
   selector: 'pv-messages',
@@ -11,7 +13,7 @@ export class MessagesComponent implements OnInit {
   messages: Message[] = [];
   loading: boolean = true;
 
-  constructor(private msgService: MessageService) {}
+  constructor(private dialog: MatDialog, private msgService: MessageService) {}
 
   async ngOnInit() {
     await this.reload();
@@ -21,5 +23,12 @@ export class MessagesComponent implements OnInit {
     this.loading = true;
     this.messages = await this.msgService.getMessages();
     this.loading = false;
+  }
+
+  openMessage(message: Message) {
+    this.dialog.open(ShowMessageComponent, {
+      width: '400px',
+      data: message,
+    });
   }
 }
