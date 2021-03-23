@@ -1,7 +1,17 @@
 <mat-card>
-    <mat-card-title>Inbox</mat-card-title>
+    <mat-card-header>
+        <mat-card-title>
+            <div class="heading">
+                <span>Inbox</span>
+                <button mat-icon-button (click)="reload()">
+                    <mat-icon>refresh</mat-icon>
+                </button>
+            </div>
+        </mat-card-title>
+    </mat-card-header>
     <mat-card-content>
-        <mat-list role="list" *ngIf="messages.length; else noMessages">
+        <mat-progress-bar *ngIf="loading" mode="indeterminate"></mat-progress-bar>
+        <mat-list role="list" *ngIf="!loading && messages.length">
             <mat-list-item role="listitem" *ngFor="let m of messages">
                 <mat-icon matListIcon>email</mat-icon>
                 <h4 matLine>{{ m.sender }}</h4>
@@ -10,9 +20,6 @@
                 </p>
             </mat-list-item>
         </mat-list>
-
-        <ng-template #noMessages>
-            <h4>No message.</h4>
-        </ng-template>
+        <mat-hint *ngIf="!loading && messages.length === 0">No messages</mat-hint>
     </mat-card-content>
 </mat-card>
