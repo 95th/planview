@@ -46,14 +46,7 @@ export class SendMessageComponent implements OnInit {
   addRecipient(event: MatChipInputEvent) {
     const input = event.input;
     const value = (event.value || '').trim();
-
-    if (
-      value &&
-      this.users.includes(value) &&
-      !this.recipients.includes(value)
-    ) {
-      this.recipients.push(value);
-    }
+    this._addRecipient(value);
 
     if (input) {
       input.value = '';
@@ -71,7 +64,8 @@ export class SendMessageComponent implements OnInit {
   }
 
   selectedRecipient(event: MatAutocompleteSelectedEvent) {
-    this.recipients.push(event.option.viewValue);
+    const value = event.option.viewValue;
+    this._addRecipient(value);
     this.chipInput.nativeElement.value = '';
     this.form.controls['recipient'].setValue(null);
   }
@@ -95,6 +89,16 @@ export class SendMessageComponent implements OnInit {
     this.formDirective.resetForm();
     this.form.reset();
     this.snackbar.open('Message sent', 'Dismiss', { duration: 2000 });
+  }
+
+  private _addRecipient(value: string) {
+    if (
+      value &&
+      this.users.includes(value) &&
+      !this.recipients.includes(value)
+    ) {
+      this.recipients.push(value);
+    }
   }
 
   private _filter(value: string) {

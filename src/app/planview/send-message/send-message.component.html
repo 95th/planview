@@ -3,35 +3,40 @@
   <mat-card-content>
     <form [formGroup]="form" #formDirective="ngForm" (ngSubmit)="send()">
       <p>
-        <mat-label>Recipients</mat-label>
-        <mat-chip-list #chipList>
-          <mat-chip
-            *ngFor="let user of recipients"
-            [selectable]="true"
-            (removed)="removeRecipient(user)"
+        <mat-form-field>
+          <mat-label>Recipients</mat-label>
+          <mat-chip-list #chipList required>
+            <mat-chip
+              *ngFor="let user of recipients"
+              [selectable]="true"
+              (removed)="removeRecipient(user)"
+            >
+              {{ user }}
+              <mat-icon matChipRemove>cancel</mat-icon>
+            </mat-chip>
+
+            <input
+              #chipInput
+              placeholder="Add recipient"
+              formControlName="recipient"
+              [matAutocomplete]="chipAutocomplete"
+              [matChipInputFor]="chipList"
+              (matChipInputTokenEnd)="addRecipient($event)"
+            />
+          </mat-chip-list>
+
+          <mat-autocomplete
+            #chipAutocomplete="matAutocomplete"
+            (optionSelected)="selectedRecipient($event)"
           >
-            {{ user }}
-            <mat-icon matChipRemove>cancel</mat-icon>
-          </mat-chip>
-
-          <input
-            #chipInput
-            placeholder="Add recipient"
-            formControlName="recipient"
-            [matAutocomplete]="chipAutocomplete"
-            [matChipInputFor]="chipList"
-            (matChipInputTokenEnd)="addRecipient($event)"
-          />
-        </mat-chip-list>
-
-        <mat-autocomplete
-          #chipAutocomplete="matAutocomplete"
-          (optionSelected)="selectedRecipient($event)"
-        >
-          <mat-option *ngFor="let user of filteredUsers | async" [value]="user">
-            {{ user }}
-          </mat-option>
-        </mat-autocomplete>
+            <mat-option
+              *ngFor="let user of filteredUsers | async"
+              [value]="user"
+            >
+              {{ user }}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
       </p>
       <p>
         <mat-form-field>
