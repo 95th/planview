@@ -12,6 +12,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatSelectModule } from '@angular/material/select';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 const MODULES = [
   MatButtonModule,
@@ -27,6 +28,7 @@ const MODULES = [
   MatSelectModule,
   MatChipsModule,
   MatAutocompleteModule,
+  MatSnackBarModule,
 ];
 
 @NgModule({
