@@ -5,17 +5,15 @@
     <mat-card-content>
         <form [formGroup]="form" #formDirective="ngForm" (ngSubmit)="create()">
             <p>
-                <mat-form-field>
+                <mat-form-field appearance="standard">
                     <mat-label>Code</mat-label>
-                    <input type="text" matInput placeholder="Enter code" formControlName="id" required
-                        autocomplete="off">
+                    <input type="text" matInput formControlName="id" required autocomplete="off">
                 </mat-form-field>
             </p>
             <p>
-                <mat-form-field>
+                <mat-form-field appearance="standard">
                     <mat-label>Description</mat-label>
-                    <textarea matInput placeholder="Enter description" formControlName="description" cdkTextareaAutosize
-                        required></textarea>
+                    <textarea matInput formControlName="description" cdkTextareaAutosize required></textarea>
                 </mat-form-field>
             </p>
             <div class="error" *ngIf="showError">Failed to create work type for {{ form.value.id }}</div>
