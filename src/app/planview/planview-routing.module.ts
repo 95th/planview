@@ -17,6 +17,14 @@ const routes: Routes = [
           import('./admin/admin.module').then((m) => m.AdminModule),
         // canActivate: [AdminAuthGuard],
       },
+      {
+        path: 'work/create',
+        loadChildren: () =>
+          import('./create-work/create-work.module').then(
+            (m) => m.CreateWorkModule
+          ),
+        // canActivate: [AdminAuthGuard],
+      },
       { path: '**', redirectTo: 'dashboard' },
     ],
   },

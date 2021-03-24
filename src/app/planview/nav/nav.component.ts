@@ -20,6 +20,12 @@ export class NavComponent implements OnInit {
 
     if (this.auth.isAdmin()) {
       this.links.push({ url: 'admin/dashboard', label: 'Admin Dashboard' });
+      this.links.push({ url: 'work/create/type', label: 'Create Work Type' });
+      this.links.push({ url: 'work/create/item', label: 'Create Work Item' });
+      this.links.push({
+        url: 'work/create/assignment',
+        label: 'Create Work Assignment',
+      });
     }
   }
 
