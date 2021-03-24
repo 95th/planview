@@ -1,7 +1,9 @@
 <button class="close-button" mat-icon-button (click)="onNoClick()">
   <mat-icon class="close-icon">close</mat-icon>
 </button>
-<h1 mat-dialog-title>{{ message.subject }}</h1>
+<h2 mat-dialog-title>
+  <mat-icon class="email-icon">email</mat-icon> {{ message.subject }}
+</h2>
 <div mat-dialog-content>
   <div>Sent by: {{ message.sender }}</div>
   <div>Date: {{ message.date | date: "medium" }}</div>
