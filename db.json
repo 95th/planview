@@ -81,10 +81,13 @@
     {
       "id": "abcd",
       "description": "abc"
-    },
+    }
+  ],
+  "work-item": [
     {
-      "id": "abc123",
-      "description": "foo abc 123"
+      "id": "item-11",
+      "description": "item 11",
+      "type": "abcd"
     }
   ]
 }

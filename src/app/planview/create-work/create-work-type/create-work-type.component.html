@@ -6,13 +6,13 @@
         <form [formGroup]="form" #formDirective="ngForm" (ngSubmit)="create()">
             <p>
                 <mat-form-field appearance="standard">
-                    <mat-label>Code</mat-label>
+                    <mat-label>Type Code</mat-label>
                     <input type="text" matInput formControlName="id" required autocomplete="off">
                 </mat-form-field>
             </p>
             <p>
                 <mat-form-field appearance="standard">
-                    <mat-label>Description</mat-label>
+                    <mat-label>Type Description</mat-label>
                     <textarea matInput formControlName="description" cdkTextareaAutosize required></textarea>
                 </mat-form-field>
             </p>
