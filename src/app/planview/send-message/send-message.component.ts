@@ -1,13 +1,18 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, NgForm } from '@angular/forms';
+import {
+  AbstractControl, FormArray, FormBuilder,
+  FormControl,
+  FormGroup,
+  NgForm
+} from '@angular/forms';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
-import { MatChipInputEvent } from '@angular/material/chips';
+import { MatChipInputEvent, MatChipList } from '@angular/material/chips';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { Message } from 'src/app/model/message';
 import { AuthService } from 'src/app/services/auth.service';
 import { MessageService } from 'src/app/services/message.service';
-import { map } from 'rxjs/operators';
-import { Observable } from 'rxjs';
-import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'pv-send-message',
@@ -18,10 +23,12 @@ export class SendMessageComponent implements OnInit {
   form: FormGroup;
   users: string[] = [];
   filteredUsers: Observable<string[]>;
-  recipients: string[] = [];
+  recipientInputField: FormControl;
 
+  @ViewChild('chipList') chipList: MatChipList;
   @ViewChild('chipInput') chipInput: ElementRef<HTMLInputElement>;
   @ViewChild('formDirective') formDirective: NgForm;
+  recipientList: FormArray;
 
   constructor(
     private fb: FormBuilder,
@@ -30,13 +37,21 @@ export class SendMessageComponent implements OnInit {
     private snackbar: MatSnackBar
   ) {
     this.form = this.fb.group({
-      recipient: [''],
+      recipients: this.fb.array([], this.arrayNotEmpty),
       subject: [''],
       message: [''],
     });
-    this.filteredUsers = this.form.controls['recipient'].valueChanges.pipe(
+
+    this.recipientInputField = new FormControl();
+    this.recipientList = this.form.controls['recipients'] as FormArray;
+
+    this.filteredUsers = this.recipientInputField.valueChanges.pipe(
       map((val) => (val ? this._filter(val) : this.users.slice()))
     );
+
+    this.recipientList.statusChanges.subscribe((status) => {
+      this.chipList.errorState = status === 'INVALID';
+    });
   }
 
   async ngOnInit() {
@@ -53,14 +68,12 @@ export class SendMessageComponent implements OnInit {
       input.value = '';
     }
 
-    this.form.controls['recipient'].setValue(null);
+    this.recipientInputField.setValue(null);
   }
 
-  removeRecipient(user: string) {
-    const index = this.recipients.indexOf(user);
-
+  removeRecipient(index: number) {
     if (index >= 0) {
-      this.recipients.splice(index, 1);
+      this.recipientList.removeAt(index);
     }
   }
 
@@ -68,12 +81,13 @@ export class SendMessageComponent implements OnInit {
     const value = event.option.viewValue;
     this._addRecipient(value);
     this.chipInput.nativeElement.value = '';
-    this.form.controls['recipient'].setValue(null);
+    this.recipientInputField.setValue(null);
   }
 
   async send() {
+    console.log(this.form.value);
     const date = new Date().toUTCString();
-    for (const recipient of this.recipients) {
+    for (const recipient of this.recipientList.value) {
       const message: Message = {
         id: 0,
         recipient,
@@ -86,7 +100,7 @@ export class SendMessageComponent implements OnInit {
       await this.messageService.send(message);
     }
 
-    this.recipients = [];
+    this.recipientList.setValue([]);
     this.formDirective.resetForm();
     this.form.reset();
     this.snackbar.open('Message sent', 'Dismiss', { duration: 2000 });
@@ -96,14 +110,21 @@ export class SendMessageComponent implements OnInit {
     if (
       value &&
       this.users.includes(value) &&
-      !this.recipients.includes(value)
+      !this.recipientList.value.includes(value)
     ) {
-      this.recipients.push(value);
+      this.recipientList.push(this.fb.control(value));
     }
   }
 
   private _filter(value: string) {
     const filterValue = value.toLowerCase();
     return this.users.filter((u) => u.toLowerCase().indexOf(filterValue) >= 0);
+  }
+
+  arrayNotEmpty(c: AbstractControl) {
+    if (c.value && c.value.length === 0) {
+      return { valid: false };
+    }
+    return null;
   }
 }
