@@ -4,6 +4,13 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 
 const routes: Routes = [
   { path: 'dashboard', component: DashboardComponent },
+  {
+    path: 'create-work',
+    loadChildren: () =>
+      import('./create-work/create-work.module').then(
+        (m) => m.CreateWorkModule
+      ),
+  },
   { path: '**', redirectTo: 'dashboard' },
 ];
 
