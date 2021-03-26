@@ -53,7 +53,7 @@ export class AuthService {
   }
 
   private get role(): string {
-    return localStorage.getItem('username');
+    return localStorage.getItem('role');
   }
 
   logoutUser() {
