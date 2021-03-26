@@ -1,6 +1,8 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import {
-  AbstractControl, FormArray, FormBuilder,
+  AbstractControl,
+  FormArray,
+  FormBuilder,
   FormControl,
   FormGroup,
   NgForm
@@ -25,7 +27,6 @@ export class SendMessageComponent implements OnInit {
   filteredUsers: Observable<string[]>;
   recipientInputField: FormControl;
 
-  @ViewChild('chipList') chipList: MatChipList;
   @ViewChild('chipInput') chipInput: ElementRef<HTMLInputElement>;
   @ViewChild('formDirective') formDirective: NgForm;
   recipientList: FormArray;
@@ -48,10 +49,6 @@ export class SendMessageComponent implements OnInit {
     this.filteredUsers = this.recipientInputField.valueChanges.pipe(
       map((val) => (val ? this._filter(val) : this.users.slice()))
     );
-
-    this.recipientList.statusChanges.subscribe((status) => {
-      this.chipList.errorState = status === 'INVALID';
-    });
   }
 
   async ngOnInit() {
@@ -85,7 +82,6 @@ export class SendMessageComponent implements OnInit {
   }
 
   async send() {
-    console.log(this.form.value);
     const date = new Date().toUTCString();
     for (const recipient of this.recipientList.value) {
       const message: Message = {
@@ -100,7 +96,7 @@ export class SendMessageComponent implements OnInit {
       await this.messageService.send(message);
     }
 
-    this.recipientList.setValue([]);
+    this.recipientList.clear();
     this.formDirective.resetForm();
     this.form.reset();
     this.snackbar.open('Message sent', 'Dismiss', { duration: 2000 });
