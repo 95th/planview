@@ -1,5 +1,8 @@
-.left-side {
-  width: 100%;
-  max-width: 500px;
-  margin: 20px;
+.dashboard-container {
+  display: flex;
+  flex-flow: column wrap;
+}
+
+.dashboard-container > * {
+  margin: 10px;
 }
