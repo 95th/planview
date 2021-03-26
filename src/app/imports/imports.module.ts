@@ -18,6 +18,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTableModule } from '@angular/material/table';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 const MODULES = [
   ReactiveFormsModule,
@@ -39,6 +40,7 @@ const MODULES = [
   MatProgressBarModule,
   MatTableModule,
   MatDialogModule,
+  MatCheckboxModule,
 ];
 
 @NgModule({
