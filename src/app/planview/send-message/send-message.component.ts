@@ -40,9 +40,8 @@ export class SendMessageComponent implements OnInit {
   }
 
   async ngOnInit() {
-    this.users = await this.auth
-      .getUsers()
-      .then((users) => users.map((u) => u.id));
+    const users = await this.auth.getUsers();
+    this.users = users.map((u) => u.id);
   }
 
   addRecipient(event: MatChipInputEvent) {

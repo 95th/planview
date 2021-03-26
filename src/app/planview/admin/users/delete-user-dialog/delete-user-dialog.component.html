@@ -1,0 +1,8 @@
+<h1 mat-dialog-title>Delete {{ user.id }}</h1>
+<mat-dialog-content>
+  <p>This will permanently delete the user {{ user.id }}</p>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button [mat-dialog-close]="true" (click)="onDelete()">Yes</button>
+  <button mat-button mat-dialog-close cdkFocusInitial>No</button>
+</mat-dialog-actions>

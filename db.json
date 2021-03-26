@@ -36,7 +36,8 @@
       "password": "klklkl",
       "password_confirmation": "klklkl",
       "locked": false,
-      "failed_tries": 0
+      "failed_tries": 0,
+      "role": "regular"
     }
   ],
   "messages": [

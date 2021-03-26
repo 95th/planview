@@ -13,15 +13,9 @@ export enum LoginStatus {
   providedIn: 'root',
 })
 export class AuthService {
-  private role: UserRole = 'regular';
-  username: string = '';
-
   constructor(private http: HttpClient) {}
 
   async loginUser(info: LoginInfo): Promise<LoginStatus> {
-    this.role = 'regular';
-    this.username = '';
-
     try {
       // I know it's bad but we dont have a real backend here.
       let user = await this.http
@@ -34,8 +28,8 @@ export class AuthService {
           await this.http.put(`/api/users/${user.id}`, user).toPromise();
         }
 
-        this.role = user.role;
-        this.username = info.username;
+        localStorage.setItem('username', info.username);
+        localStorage.setItem('role', user.role); // Again it's bad!!
         return LoginStatus.Ok;
       }
 
@@ -54,9 +48,17 @@ export class AuthService {
     return LoginStatus.Failed;
   }
 
-  async logoutUser() {
-    this.role = 'regular';
-    this.username = '';
+  get username(): string {
+    return localStorage.getItem('username');
+  }
+
+  private get role(): string {
+    return localStorage.getItem('username');
+  }
+
+  logoutUser() {
+    localStorage.setItem('username', '');
+    localStorage.setItem('role', 'regular');
   }
 
   async createUser(user: User): Promise<User> {
@@ -66,6 +68,14 @@ export class AuthService {
   async getUsers(): Promise<User[]> {
     const users = await this.http.get<User[]>('/api/users').toPromise();
     return users.filter((u) => u.id !== this.username);
+  }
+
+  async updateUser(user: User) {
+    await this.http.put(`/api/users/${user.id}`, user).toPromise();
+  }
+
+  async deleteUser(user: User) {
+    await this.http.delete(`/api/users/${user.id}`).toPromise();
   }
 
   isLoggedIn(): boolean {

@@ -30,7 +30,7 @@ export class NavComponent implements OnInit {
   }
 
   async logout() {
-    await this.auth.logoutUser();
+    this.auth.logoutUser();
     await this.router.navigateByUrl('/login');
   }
 }

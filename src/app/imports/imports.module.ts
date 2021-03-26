@@ -17,6 +17,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTableModule } from '@angular/material/table';
+import { MatDialogModule } from '@angular/material/dialog';
 
 const MODULES = [
   ReactiveFormsModule,
@@ -37,6 +38,7 @@ const MODULES = [
   MatListModule,
   MatProgressBarModule,
   MatTableModule,
+  MatDialogModule,
 ];
 
 @NgModule({
