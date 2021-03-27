@@ -24,4 +24,8 @@ export class MessageService {
   async send(message: Message) {
     await this.http.post('/api/messages', message).toPromise();
   }
+
+  async delete(message: Message) {
+    await this.http.delete(`/api/messages/${message.id}`).toPromise();
+  }
 }

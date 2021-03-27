@@ -6,32 +6,18 @@
         <mat-form-field appearance="standard">
           <mat-label>Recipients</mat-label>
           <mat-chip-list #chipList formArrayName="recipients" required>
-            <mat-chip
-              *ngFor="let user of recipientList.controls; let i = index"
-              [selectable]="true"
-              (removed)="removeRecipient(i)"
-            >
+            <mat-chip *ngFor="let user of recipientList.controls; let i = index" [selectable]="true"
+              (removed)="removeRecipient(i)">
               {{ user.value }}
               <mat-icon matChipRemove>cancel</mat-icon>
             </mat-chip>
 
-            <input
-              #chipInput
-              [formControl]="recipientInputField"
-              [matAutocomplete]="chipAutocomplete"
-              [matChipInputFor]="chipList"
-              (matChipInputTokenEnd)="addRecipient($event)"
-            />
+            <input #chipInput [formControl]="recipientInputField" [matAutocomplete]="chipAutocomplete"
+              [matChipInputFor]="chipList" (matChipInputTokenEnd)="addRecipient($event)" />
           </mat-chip-list>
 
-          <mat-autocomplete
-            #chipAutocomplete="matAutocomplete"
-            (optionSelected)="selectedRecipient($event)"
-          >
-            <mat-option
-              *ngFor="let user of filteredUsers | async"
-              [value]="user"
-            >
+          <mat-autocomplete #chipAutocomplete="matAutocomplete" (optionSelected)="selectedRecipient($event)">
+            <mat-option *ngFor="let user of filteredUsers | async" [value]="user">
               {{ user }}
             </mat-option>
           </mat-autocomplete>
@@ -46,12 +32,7 @@
       <p>
         <mat-form-field appearance="standard">
           <mat-label>Message</mat-label>
-          <textarea
-            matInput
-            formControlName="message"
-            cdkTextareaAutosize
-            required
-          ></textarea>
+          <textarea matInput formControlName="message" cdkTextareaAutosize required #messageInput="matInput"></textarea>
         </mat-form-field>
       </p>
       <div class="button">

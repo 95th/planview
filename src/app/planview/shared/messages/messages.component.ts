@@ -25,10 +25,14 @@ export class MessagesComponent implements OnInit {
     this.loading = false;
   }
 
-  openMessage(message: Message) {
-    this.dialog.open(ShowMessageComponent, {
+  async openMessage(message: Message) {
+    const dialogRef = this.dialog.open(ShowMessageComponent, {
       width: '400px',
       data: message,
     });
+    const reload = await dialogRef.afterClosed().toPromise();
+    if (reload) {
+      await this.reload();
+    }
   }
 }

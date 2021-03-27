@@ -5,11 +5,13 @@ import {
   FormBuilder,
   FormControl,
   FormGroup,
-  NgForm
+  NgForm,
 } from '@angular/forms';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
-import { MatChipInputEvent, MatChipList } from '@angular/material/chips';
+import { MatChipInputEvent } from '@angular/material/chips';
+import { MatInput } from '@angular/material/input';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Message } from 'src/app/model/message';
@@ -29,13 +31,15 @@ export class SendMessageComponent implements OnInit {
 
   @ViewChild('chipInput') chipInput: ElementRef<HTMLInputElement>;
   @ViewChild('formDirective') formDirective: NgForm;
+  @ViewChild('messageInput') messageInput: MatInput;
   recipientList: FormArray;
 
   constructor(
     private fb: FormBuilder,
     private auth: AuthService,
     private messageService: MessageService,
-    private snackbar: MatSnackBar
+    private snackbar: MatSnackBar,
+    private route: ActivatedRoute
   ) {
     this.form = this.fb.group({
       recipients: this.fb.array([], this.arrayNotEmpty),
@@ -54,6 +58,13 @@ export class SendMessageComponent implements OnInit {
   async ngOnInit() {
     const users = await this.auth.getUsers();
     this.users = users.map((u) => u.id);
+    this.route.paramMap.subscribe((params) => {
+      if (params.has('to') && params.has('subject')) {
+        this.recipientList.push(this.fb.control(params.get('to')));
+        this.form.patchValue({ subject: params.get('subject') });
+        this.messageInput.focus();
+      }
+    });
   }
 
   addRecipient(event: MatChipInputEvent) {
