@@ -15,6 +15,7 @@ export class NavComponent implements OnInit {
   ngOnInit(): void {
     this.links = [
       { label: 'Home', url: 'dashboard' },
+      { label: 'Timesheet', url: 'timesheet' },
       { label: 'Message', url: 'send-message' },
     ];
 
