@@ -15,22 +15,23 @@ export class NavComponent implements OnInit {
   ngOnInit(): void {
     this.links = [
       { url: 'dashboard', label: 'Home' },
-      { url: 'send-message', label: 'New Message' },
+      { url: 'timesheet', label: 'Timesheet' },
+      { url: 'send-message', label: 'Message' },
     ];
 
     if (this.auth.isAdmin()) {
       this.links.push({ url: 'admin/dashboard', label: 'Admin Dashboard' });
       this.links.push({
         url: 'admin/create-work/type',
-        label: 'Create Work Type',
+        label: 'Work Type',
       });
       this.links.push({
         url: 'admin/create-work/item',
-        label: 'Create Work Item',
+        label: 'Work Item',
       });
       this.links.push({
         url: 'admin/create-work/assignment',
-        label: 'Create Work Assignment',
+        label: 'Work Assignment',
       });
     }
   }

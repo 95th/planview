@@ -8,6 +8,7 @@ import { PlanviewRoutingModule } from './planview-routing.module';
 import { SendMessageComponent } from './send-message/send-message.component';
 import { SharedModule } from './shared/shared.module';
 import { WorkItemComponent } from './work-item/work-item.component';
+import { TimesheetComponent } from './timesheet/timesheet.component';
 
 @NgModule({
   declarations: [
@@ -16,6 +17,7 @@ import { WorkItemComponent } from './work-item/work-item.component';
     HomeComponent,
     SendMessageComponent,
     WorkItemComponent,
+    TimesheetComponent,
   ],
   imports: [CommonModule, PlanviewRoutingModule, ImportsModule, SharedModule],
 })

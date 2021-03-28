@@ -4,6 +4,7 @@ import { AdminAuthGuard } from '../services/admin-auth.guard';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { HomeComponent } from './home/home.component';
 import { SendMessageComponent } from './send-message/send-message.component';
+import { TimesheetComponent } from './timesheet/timesheet.component';
 
 const routes: Routes = [
   {
@@ -12,6 +13,7 @@ const routes: Routes = [
     children: [
       { path: 'dashboard', component: DashboardComponent },
       { path: 'send-message', component: SendMessageComponent },
+      { path: 'timesheet', component: TimesheetComponent },
       {
         path: 'admin',
         loadChildren: () =>
