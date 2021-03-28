@@ -90,5 +90,12 @@
       "description": "item 11",
       "type": "abcd"
     }
+  ],
+  "work-assignment": [
+    {
+      "id": 1,
+      "user_id": "vargwin",
+      "work_item_id": "item-11"
+    }
   ]
 }
