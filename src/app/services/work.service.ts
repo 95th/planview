@@ -3,27 +3,28 @@ import { Injectable } from '@angular/core';
 import { WorkAssignment } from '../model/work-assignment';
 import { WorkItem } from '../model/work-item';
 import { WorkType } from '../model/work-type';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class WorkService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private auth: AuthService) {}
 
   async createType(type: WorkType) {
-    return this.http.post('/api/work-type', type).toPromise();
+    return await this.http.post('/api/work-type', type).toPromise();
   }
 
   async getTypes(): Promise<WorkType[]> {
-    return this.http.get<WorkType[]>('/api/work-type').toPromise();
+    return await this.http.get<WorkType[]>('/api/work-type').toPromise();
   }
 
   async createItem(item: WorkItem) {
-    return this.http.post('/api/work-item', item).toPromise();
+    return await this.http.post('/api/work-item', item).toPromise();
   }
 
   async getItems(): Promise<WorkItem[]> {
-    return this.http.get<WorkItem[]>('/api/work-item').toPromise();
+    return await this.http.get<WorkItem[]>('/api/work-item').toPromise();
   }
 
   async createAssignments(assignments: WorkAssignment[]) {
@@ -39,6 +40,16 @@ export class WorkService {
     }
 
     await this.http.post('/api/work-assignment', assignment).toPromise();
+  }
+
+  async getAssignedItems(): Promise<WorkAssignment[]> {
+    return await this.http
+      .get<WorkAssignment[]>('/api/work-assignment', {
+        params: {
+          user_id: this.auth.username,
+        },
+      })
+      .toPromise();
   }
 
   private async findAssignment(assignment: WorkAssignment): Promise<boolean> {
