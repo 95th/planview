@@ -7,9 +7,8 @@ import { NavComponent } from './nav/nav.component';
 import { PlanviewRoutingModule } from './planview-routing.module';
 import { SendMessageComponent } from './send-message/send-message.component';
 import { SharedModule } from './shared/shared.module';
-import { WorkItemComponent } from './work-item/work-item.component';
 import { TimesheetComponent } from './timesheet/timesheet.component';
-import { FormsModule } from '@angular/forms';
+import { WorkItemComponent } from './work-item/work-item.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +19,6 @@ import { FormsModule } from '@angular/forms';
     WorkItemComponent,
     TimesheetComponent,
   ],
-  imports: [CommonModule, PlanviewRoutingModule, ImportsModule, SharedModule, FormsModule],
+  imports: [CommonModule, PlanviewRoutingModule, ImportsModule, SharedModule],
 })
 export class PlanviewModule {}
