@@ -3,19 +3,16 @@ import { RouterModule, Routes } from '@angular/router';
 import { DashboardComponent } from './dashboard/dashboard.component';
 
 const routes: Routes = [
-  { path: 'dashboard', component: DashboardComponent },
-  {
-    path: 'create-work',
-    loadChildren: () =>
-      import('./create-work/create-work.module').then(
-        (m) => m.CreateWorkModule
-      ),
-  },
-  { path: '**', redirectTo: 'dashboard' },
+    { path: 'dashboard', component: DashboardComponent },
+    {
+        path: 'create-work',
+        loadChildren: () => import('./create-work/create-work.module').then((m) => m.CreateWorkModule),
+    },
+    { path: '**', redirectTo: 'dashboard' },
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule],
+    imports: [RouterModule.forChild(routes)],
+    exports: [RouterModule],
 })
 export class AdminRoutingModule {}

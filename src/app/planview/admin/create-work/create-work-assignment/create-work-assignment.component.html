@@ -16,8 +16,9 @@
                 <mat-form-field appearance="standard">
                     <mat-label>Work Item</mat-label>
                     <mat-select formControlName="work_items" multiple>
-                        <mat-option *ngFor="let work_item of work_items" [value]="work_item.id">{{ work_item.id }},
-                            Type: {{work_item.type}}</mat-option>
+                        <mat-option *ngFor="let work_item of work_items" [value]="work_item.id"
+                            >{{ work_item.id }}, Type: {{ work_item.type }}</mat-option
+                        >
                     </mat-select>
                 </mat-form-field>
             </p>

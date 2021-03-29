@@ -9,12 +9,7 @@ import { EditUserDialogComponent } from './users/edit-user-dialog/edit-user-dial
 import { UsersComponent } from './users/users.component';
 
 @NgModule({
-  declarations: [
-    DashboardComponent,
-    UsersComponent,
-    DeleteUserDialogComponent,
-    EditUserDialogComponent,
-  ],
-  imports: [CommonModule, AdminRoutingModule, SharedModule, ImportsModule],
+    declarations: [DashboardComponent, UsersComponent, DeleteUserDialogComponent, EditUserDialogComponent],
+    imports: [CommonModule, AdminRoutingModule, SharedModule, ImportsModule],
 })
 export class AdminModule {}

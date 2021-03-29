@@ -7,12 +7,8 @@ import { ShowMessageComponent } from './show-message/show-message.component';
 import { WeekSelectorComponent } from './week-selector/week-selector.component';
 
 @NgModule({
-  declarations: [
-    MessagesComponent,
-    ShowMessageComponent,
-    WeekSelectorComponent,
-  ],
-  imports: [CommonModule, ImportsModule, FormsModule],
-  exports: [MessagesComponent, WeekSelectorComponent],
+    declarations: [MessagesComponent, ShowMessageComponent, WeekSelectorComponent],
+    imports: [CommonModule, ImportsModule, FormsModule],
+    exports: [MessagesComponent, WeekSelectorComponent],
 })
 export class SharedModule {}

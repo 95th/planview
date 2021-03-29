@@ -1,30 +1,30 @@
 @keyframes loading {
-  0% {
-    transform: scale(0.9);
-    opacity: 0;
-  }
+    0% {
+        transform: scale(0.9);
+        opacity: 0;
+    }
 }
 
 :host {
-  display: flex;
-  align-items: center;
-  flex-flow: column nowrap;
-  margin-top: 10px;
-  animation: loading ease 0.4s;
+    display: flex;
+    align-items: center;
+    flex-flow: column nowrap;
+    margin-top: 10px;
+    animation: loading ease 0.4s;
 }
 
 .mat-form-field {
-  min-width: 300px;
-  margin: 10px;
+    min-width: 300px;
+    margin: 10px;
 }
 
 button {
-  margin: 10px;
+    margin: 10px;
 }
 
 .error {
-  padding: 16px;
-  width: 300px;
-  color: white;
-  background-color: red;
+    padding: 16px;
+    width: 300px;
+    color: white;
+    background-color: red;
 }

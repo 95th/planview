@@ -1,20 +1,18 @@
 <mat-toolbar color="primary">
-  <span>PlanView</span>
-  <span class="spacer"></span>
-  <button mat-button (click)="logout()">
-    <mat-icon>logout</mat-icon> Logout
-  </button>
+    <span>PlanView</span>
+    <span class="spacer"></span>
+    <button mat-button (click)="logout()"><mat-icon>logout</mat-icon> Logout</button>
 </mat-toolbar>
 
 <nav mat-tab-nav-bar>
-  <a
-    *ngFor="let link of links"
-    matTabLink
-    [routerLink]="link.url"
-    routerLinkActive
-    #route="routerLinkActive"
-    [active]="route.isActive"
-  >
-    {{ link.label }}
-  </a>
+    <a
+        *ngFor="let link of links"
+        matTabLink
+        [routerLink]="link.url"
+        routerLinkActive
+        #route="routerLinkActive"
+        [active]="route.isActive"
+    >
+        {{ link.label }}
+    </a>
 </nav>

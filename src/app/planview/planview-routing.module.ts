@@ -7,26 +7,25 @@ import { SendMessageComponent } from './send-message/send-message.component';
 import { TimesheetComponent } from './timesheet/timesheet.component';
 
 const routes: Routes = [
-  {
-    path: '',
-    component: HomeComponent,
-    children: [
-      { path: 'dashboard', component: DashboardComponent },
-      { path: 'send-message', component: SendMessageComponent },
-      { path: 'timesheet', component: TimesheetComponent },
-      {
-        path: 'admin',
-        loadChildren: () =>
-          import('./admin/admin.module').then((m) => m.AdminModule),
-        canActivate: [AdminAuthGuard],
-      },
-      { path: '**', redirectTo: 'dashboard' },
-    ],
-  },
+    {
+        path: '',
+        component: HomeComponent,
+        children: [
+            { path: 'dashboard', component: DashboardComponent },
+            { path: 'send-message', component: SendMessageComponent },
+            { path: 'timesheet', component: TimesheetComponent },
+            {
+                path: 'admin',
+                loadChildren: () => import('./admin/admin.module').then((m) => m.AdminModule),
+                canActivate: [AdminAuthGuard],
+            },
+            { path: '**', redirectTo: 'dashboard' },
+        ],
+    },
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule],
+    imports: [RouterModule.forChild(routes)],
+    exports: [RouterModule],
 })
 export class PlanviewRoutingModule {}

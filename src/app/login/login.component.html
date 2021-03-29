@@ -5,13 +5,13 @@
             <p>
                 <mat-form-field appearance="standard">
                     <mat-label>Username</mat-label>
-                    <input type="text" matInput formControlName="username" required autocomplete="off">
+                    <input type="text" matInput formControlName="username" required autocomplete="off" />
                 </mat-form-field>
             </p>
             <p>
                 <mat-form-field appearance="standard">
                     <mat-label>Password</mat-label>
-                    <input matInput type="password" formControlName="password" required>
+                    <input matInput type="password" formControlName="password" required />
                 </mat-form-field>
             </p>
             <p *ngIf="loginError" class="error">
@@ -20,7 +20,7 @@
             <div class="button">
                 <button type="submit" mat-button [disabled]="form.invalid">Login</button>
             </div>
-            <div style="margin-top: 16px; text-align: center;">
+            <div style="margin-top: 16px; text-align: center">
                 New to PlanView?
                 <a routerLink="/register">Create an account</a>
             </div>

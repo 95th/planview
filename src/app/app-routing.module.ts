@@ -6,19 +6,18 @@ import { RegistrationComponent } from './registration/registration.component';
 import { AuthGuard } from './services/auth.guard';
 
 const routes: Routes = [
-  { path: '', component: HomeComponent, pathMatch: 'full' },
-  { path: 'login', component: LoginComponent },
-  { path: 'register', component: RegistrationComponent },
-  {
-    path: 'planview',
-    loadChildren: () =>
-      import('./planview/planview.module').then((m) => m.PlanviewModule),
-    canActivate: [AuthGuard],
-  },
+    { path: '', component: HomeComponent, pathMatch: 'full' },
+    { path: 'login', component: LoginComponent },
+    { path: 'register', component: RegistrationComponent },
+    {
+        path: 'planview',
+        loadChildren: () => import('./planview/planview.module').then((m) => m.PlanviewModule),
+        canActivate: [AuthGuard],
+    },
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule],
+    imports: [RouterModule.forRoot(routes)],
+    exports: [RouterModule],
 })
 export class AppRoutingModule {}

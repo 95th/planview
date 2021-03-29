@@ -1,9 +1,7 @@
 <mat-card>
-  <mat-card-title>Timesheet Entry</mat-card-title>
-  <mat-card-content>
-    <pv-week-selector [(week)]="dateRange"></pv-week-selector>
-    <form [formGroup]="form" #formDirective="ngForm">
-
-    </form>
-  </mat-card-content>
+    <mat-card-title>Timesheet Entry</mat-card-title>
+    <mat-card-content>
+        <pv-week-selector [(week)]="dateRange"></pv-week-selector>
+        <form [formGroup]="form" #formDirective="ngForm"></form>
+    </mat-card-content>
 </mat-card>

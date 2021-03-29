@@ -1,5 +1,5 @@
 export interface WorkItem {
-  id: string;
-  description: string;
-  type: string;
+    id: string;
+    description: string;
+    type: string;
 }

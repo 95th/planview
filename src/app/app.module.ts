@@ -10,20 +10,9 @@ import { LoginComponent } from './login/login.component';
 import { RegistrationComponent } from './registration/registration.component';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    RegistrationComponent,
-    HomeComponent,
-    LoginComponent,
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    HttpClientModule,
-    BrowserAnimationsModule,
-    ImportsModule,
-  ],
-  providers: [],
-  bootstrap: [AppComponent],
+    declarations: [AppComponent, RegistrationComponent, HomeComponent, LoginComponent],
+    imports: [BrowserModule, AppRoutingModule, HttpClientModule, BrowserAnimationsModule, ImportsModule],
+    providers: [],
+    bootstrap: [AppComponent],
 })
 export class AppModule {}

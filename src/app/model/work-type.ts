@@ -1,4 +1,4 @@
 export interface WorkType {
-  id: string;
-  description: string;
+    id: string;
+    description: string;
 }

@@ -4,22 +4,22 @@
         <div>
             <mat-form-field appearance="standard">
                 <mat-label>First name</mat-label>
-                <input matInput type="text" formControlName="first_name" required>
+                <input matInput type="text" formControlName="first_name" required />
             </mat-form-field>
             <mat-form-field appearance="standard">
                 <mat-label>Last name</mat-label>
-                <input matInput type="text" formControlName="last_name" required>
+                <input matInput type="text" formControlName="last_name" required />
             </mat-form-field>
         </div>
 
         <div>
             <mat-form-field appearance="standard">
                 <mat-label>Email Address</mat-label>
-                <input matInput formControlName="email" required>
+                <input matInput formControlName="email" required />
             </mat-form-field>
             <mat-form-field appearance="standard">
                 <mat-label>Date of birth</mat-label>
-                <input matInput formControlName="date_of_birth" [matDatepicker]="picker" required>
+                <input matInput formControlName="date_of_birth" [matDatepicker]="picker" required />
                 <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                 <mat-datepicker #picker></mat-datepicker>
             </mat-form-field>
@@ -29,33 +29,33 @@
             <div>
                 <mat-form-field appearance="standard">
                     <mat-label>Address line 1</mat-label>
-                    <input matInput formControlName="line_1">
+                    <input matInput formControlName="line_1" />
                 </mat-form-field>
                 <mat-form-field appearance="standard">
                     <mat-label>Address line 2</mat-label>
-                    <input matInput formControlName="line_2">
+                    <input matInput formControlName="line_2" />
                 </mat-form-field>
             </div>
 
             <div>
                 <mat-form-field appearance="standard">
                     <mat-label>City</mat-label>
-                    <input matInput formControlName="city" required>
+                    <input matInput formControlName="city" required />
                 </mat-form-field>
                 <mat-form-field appearance="standard">
                     <mat-label>State</mat-label>
-                    <input matInput formControlName="state" required>
+                    <input matInput formControlName="state" required />
                 </mat-form-field>
             </div>
 
             <div>
                 <mat-form-field appearance="standard">
                     <mat-label>Country</mat-label>
-                    <input matInput formControlName="country" required>
+                    <input matInput formControlName="country" required />
                 </mat-form-field>
                 <mat-form-field appearance="standard">
                     <mat-label>Zip code</mat-label>
-                    <input matInput formControlName="zip" required>
+                    <input matInput formControlName="zip" required />
                 </mat-form-field>
             </div>
         </div>
@@ -63,18 +63,18 @@
         <div>
             <mat-form-field appearance="standard">
                 <mat-label>Username</mat-label>
-                <input matInput formControlName="id" required>
+                <input matInput formControlName="id" required />
             </mat-form-field>
         </div>
 
         <div>
             <mat-form-field appearance="standard">
                 <mat-label>Password</mat-label>
-                <input matInput type="password" formControlName="password" required>
+                <input matInput type="password" formControlName="password" required />
             </mat-form-field>
             <mat-form-field appearance="standard">
                 <mat-label>Confirm password</mat-label>
-                <input matInput type="password" formControlName="password_confirmation" required>
+                <input matInput type="password" formControlName="password_confirmation" required />
             </mat-form-field>
         </div>
 

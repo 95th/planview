@@ -11,14 +11,14 @@ import { TimesheetComponent } from './timesheet/timesheet.component';
 import { WorkItemComponent } from './work-item/work-item.component';
 
 @NgModule({
-  declarations: [
-    DashboardComponent,
-    NavComponent,
-    HomeComponent,
-    SendMessageComponent,
-    WorkItemComponent,
-    TimesheetComponent,
-  ],
-  imports: [CommonModule, PlanviewRoutingModule, ImportsModule, SharedModule],
+    declarations: [
+        DashboardComponent,
+        NavComponent,
+        HomeComponent,
+        SendMessageComponent,
+        WorkItemComponent,
+        TimesheetComponent,
+    ],
+    imports: [CommonModule, PlanviewRoutingModule, ImportsModule, SharedModule],
 })
 export class PlanviewModule {}

@@ -8,11 +8,7 @@ import { CreateWorkRoutingModule } from './create-work-routing.module';
 import { CreateWorkTypeComponent } from './create-work-type/create-work-type.component';
 
 @NgModule({
-  declarations: [
-    CreateWorkTypeComponent,
-    CreateWorkItemComponent,
-    CreateWorkAssignmentComponent,
-  ],
-  imports: [CommonModule, CreateWorkRoutingModule, ImportsModule, SharedModule],
+    declarations: [CreateWorkTypeComponent, CreateWorkItemComponent, CreateWorkAssignmentComponent],
+    imports: [CommonModule, CreateWorkRoutingModule, ImportsModule, SharedModule],
 })
 export class CreateWorkModule {}
