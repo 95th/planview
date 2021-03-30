@@ -22,9 +22,9 @@ export class SendMessageComponent implements OnInit {
     filteredUsers: Observable<string[]>;
     recipientInputField: FormControl;
 
-    @ViewChild('chipInput') chipInput: ElementRef<HTMLInputElement>;
-    @ViewChild('formDirective') formDirective: NgForm;
-    @ViewChild('messageInput') messageInput: MatInput;
+    @ViewChild('chipInput') chipInput!: ElementRef<HTMLInputElement>;
+    @ViewChild('formDirective') formDirective!: NgForm;
+    @ViewChild('messageInput') messageInput!: MatInput;
     recipientList: FormArray;
 
     constructor(

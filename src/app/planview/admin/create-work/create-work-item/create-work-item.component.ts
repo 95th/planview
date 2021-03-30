@@ -11,7 +11,7 @@ import { WorkService } from 'src/app/services/work.service';
 })
 export class CreateWorkItemComponent implements OnInit {
     form: FormGroup;
-    @ViewChild('formDirective') formDirective: NgForm;
+    @ViewChild('formDirective') formDirective!: NgForm;
     showError: boolean = false;
     types: WorkType[] = [];
 

@@ -13,7 +13,7 @@ import { WorkService } from 'src/app/services/work.service';
 })
 export class CreateWorkAssignmentComponent implements OnInit {
     form: FormGroup;
-    @ViewChild('formDirective') formDirective: NgForm;
+    @ViewChild('formDirective') formDirective!: NgForm;
 
     users: string[] = [];
     work_items: WorkItem[] = [];

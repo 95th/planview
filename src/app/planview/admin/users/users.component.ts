@@ -23,7 +23,7 @@ export class UsersComponent implements OnInit {
     loading: boolean = true;
     displayedColumns: string[] = ['id', 'name', 'admin', 'locked'];
     users: User[] = [];
-    expandedUser: User | null;
+    expandedUser: User | null = null;
 
     constructor(private auth: AuthService, public dialog: MatDialog, private snackbar: MatSnackBar) {}
 

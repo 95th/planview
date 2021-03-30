@@ -10,7 +10,7 @@ import { WorkService } from 'src/app/services/work.service';
 })
 export class CreateWorkTypeComponent implements OnInit {
     form: FormGroup;
-    @ViewChild('formDirective') formDirective: NgForm;
+    @ViewChild('formDirective') formDirective!: NgForm;
     showError: boolean = false;
 
     constructor(private fb: FormBuilder, private workService: WorkService, private snackbar: MatSnackBar) {

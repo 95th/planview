@@ -1,7 +1,24 @@
 <mat-card>
     <mat-card-title>Timesheet Entry</mat-card-title>
     <mat-card-content>
-        <pv-week-selector [(week)]="dateRange"></pv-week-selector>
-        <form [formGroup]="form" #formDirective="ngForm"></form>
+        <pv-week-selector [(week)]="dateRange" (weekChange)="reload()"></pv-week-selector>
+        <mat-divider></mat-divider>
+        <form [formGroup]="form" #formDirective="ngForm">
+            <table *ngIf="entries.length" mat-table [dataSource]="entries" multiTemplateDataRows>
+                <ng-container matColumnDef="work_item_name">
+                    <th mat-header-cell *matHeaderCellDef>Work Item</th>
+                    <td mat-cell *matCellDef="let element">Work Item {{ element.work_item_id }}</td>
+                </ng-container>
+
+                <ng-container [matColumnDef]="col" *ngFor="let col of columns">
+                    <th mat-header-cell *matHeaderCellDef>{{ col }}</th>
+                    <td mat-cell *matCellDef="let element">{{ element[col] }}</td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let element; columns: displayedColumns"></tr>
+            </table>
+            <mat-hint *ngIf="!loading && entries.length === 0">No timesheets</mat-hint>
+        </form>
     </mat-card-content>
 </mat-card>

@@ -47,11 +47,11 @@ export class AuthService {
     }
 
     get username(): string {
-        return localStorage.getItem('username');
+        return localStorage.getItem('username') || '';
     }
 
     private get role(): string {
-        return localStorage.getItem('role');
+        return localStorage.getItem('role') || '';
     }
 
     logoutUser() {

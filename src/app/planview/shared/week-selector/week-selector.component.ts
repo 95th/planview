@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Injectable, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Injectable, Input, Output } from '@angular/core';
 import { DateAdapter } from '@angular/material/core';
 import {
     DateRange,
@@ -41,17 +41,17 @@ export class WeekSelectionStrategy<D> implements MatDateRangeSelectionStrategy<D
         },
     ],
 })
-export class WeekSelectorComponent implements OnInit {
-    @Input() week: DateRange<Date>;
+export class WeekSelectorComponent {
     @Output() weekChange = new EventEmitter<DateRange<Date>>();
-    start: Date;
-    end: Date;
+    start: Date = new Date();
+    end: Date = new Date();
 
-    constructor(private dateAdapter: DateAdapter<Date>) {
-        this.setDateRange(this.dateAdapter.today());
+    @Input() set week(range: DateRange<Date>) {
+        this.start = range.start || new Date();
+        this.end = range.end || new Date();
     }
 
-    ngOnInit(): void {}
+    constructor(private dateAdapter: DateAdapter<Date>) {}
 
     rangeFilter(date: Date | null): boolean {
         const day = (date || new Date()).getDay();
@@ -62,14 +62,9 @@ export class WeekSelectorComponent implements OnInit {
         this.weekChange.emit(new DateRange(this.start, this.end));
     }
 
-    private setDateRange(date: Date) {
-        const day = this.dateAdapter.getDayOfWeek(date);
-        this.start = this.dateAdapter.addCalendarDays(date, 1 - day);
-        this.end = this.dateAdapter.addCalendarDays(this.start, 4);
-    }
-
     addWeek(week: number) {
         this.start = this.dateAdapter.addCalendarDays(this.start, week * 7);
         this.end = this.dateAdapter.addCalendarDays(this.end, week * 7);
+        this.onDateChange();
     }
 }
