@@ -1,8 +1,12 @@
-export interface TimesheetEntry {
-    id: number;
-    date: string;
+export interface Timesheet {
     user_id: string;
-    assignment_id: number;
+    week_start_date: string;
+    data: TimesheetRecord[];
+}
+
+export interface TimesheetRecord {
     work_item_id: number;
-    hour: number;
+
+    // Logged hours
+    [date: string]: number | null;
 }

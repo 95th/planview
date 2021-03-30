@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { ImportsModule } from '../imports/imports.module';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { HomeComponent } from './home/home.component';
@@ -19,6 +20,6 @@ import { WorkItemComponent } from './work-item/work-item.component';
         WorkItemComponent,
         TimesheetComponent,
     ],
-    imports: [CommonModule, PlanviewRoutingModule, ImportsModule, SharedModule],
+    imports: [CommonModule, PlanviewRoutingModule, ImportsModule, SharedModule, FormsModule],
 })
 export class PlanviewModule {}

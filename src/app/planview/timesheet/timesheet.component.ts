@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { DateAdapter } from '@angular/material/core';
 import { DateRange } from '@angular/material/datepicker';
-import { TimesheetEntry } from 'src/app/model/timesheet';
+import { Timesheet } from 'src/app/model/timesheet';
 import { WorkService } from 'src/app/services/work.service';
 
 @Component({
@@ -15,16 +15,36 @@ export class TimesheetComponent {
     dateRange: DateRange<Date>;
     loading: boolean = false;
 
-    entries: TimesheetEntry[] = [
-        {
-            id: 2,
-            user_id: 'vargwin',
-            assignment_id: 3,
-            date: '2020-01-01',
-            hour: 20,
-            work_item_id: 1,
-        },
-    ];
+    timesheet: Timesheet = {
+        user_id: 'vargwin',
+        week_start_date: '2021-03-29',
+        data: [
+            {
+                work_item_id: 1,
+                '29-MAR-2021': 10,
+                '30-MAR-2021': 10,
+                '31-MAR-2021': 10,
+                '01-APR-2021': 10,
+                '02-APR-2021': 10,
+            },
+            {
+                work_item_id: 2,
+                '29-MAR-2021': 10,
+                '30-MAR-2021': 10,
+                '31-MAR-2021': 10,
+                '01-APR-2021': 10,
+                '02-APR-2021': 10,
+            },
+            {
+                work_item_id: 3,
+                '29-MAR-2021': 8,
+                '30-MAR-2021': 8,
+                '31-MAR-2021': 8,
+                '01-APR-2021': 8,
+                '02-APR-2021': 8,
+            },
+        ],
+    };
     columns: string[] = [];
     displayedColumns: string[] = [];
 
