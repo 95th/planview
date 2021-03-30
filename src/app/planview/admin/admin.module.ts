@@ -8,9 +8,10 @@ import { DeleteUserDialogComponent } from './users/delete-user-dialog/delete-use
 import { EditUserDialogComponent } from './users/edit-user-dialog/edit-user-dialog.component';
 import { UsersComponent } from './users/users.component';
 import { SubmittedTimesheetsComponent } from './submitted-timesheets/submitted-timesheets.component';
+import { UsabilityReportComponent } from './usability-report/usability-report.component';
 
 @NgModule({
-    declarations: [DashboardComponent, UsersComponent, DeleteUserDialogComponent, EditUserDialogComponent, SubmittedTimesheetsComponent],
+    declarations: [DashboardComponent, UsersComponent, DeleteUserDialogComponent, EditUserDialogComponent, SubmittedTimesheetsComponent, UsabilityReportComponent],
     imports: [CommonModule, AdminRoutingModule, SharedModule, ImportsModule],
 })
 export class AdminModule {}

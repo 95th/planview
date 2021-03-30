@@ -33,6 +33,10 @@ export class NavComponent implements OnInit {
                 label: 'Work Assignment',
                 url: 'admin/create-work/assignment',
             });
+            this.links.push({
+                label: 'Usability Report',
+                url: 'admin/usability',
+            });
         }
     }
 

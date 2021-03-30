@@ -4,4 +4,5 @@ export interface RequestLog {
     url: string;
     url_with_query?: string;
     timestamp: string;
+    week_start: string;
 }

@@ -9,7 +9,7 @@ export class ApiInterceptor implements HttpInterceptor {
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         if (req.url !== '/api/api-log') {
-            this.logService.log_request(req.url, req.urlWithParams);
+            this.logService.logRequest(req.url, req.urlWithParams);
         }
         return next.handle(req);
     }

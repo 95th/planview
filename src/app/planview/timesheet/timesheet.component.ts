@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
 import { DateAdapter } from '@angular/material/core';
 import { DateRange } from '@angular/material/datepicker';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -14,7 +13,6 @@ import { dateToString } from 'src/app/util/date.util';
     styleUrls: ['./timesheet.component.scss'],
 })
 export class TimesheetComponent {
-    form: FormGroup;
     dateRange: DateRange<Date>;
     loading: boolean = false;
 
@@ -28,13 +26,11 @@ export class TimesheetComponent {
     displayedColumns: string[] = [];
 
     constructor(
-        private fb: FormBuilder,
         private dateAdapter: DateAdapter<Date>,
         private workService: WorkService,
         private timesheetService: TimesheetService,
         private snackbar: MatSnackBar
     ) {
-        this.form = this.fb.group({});
         this.dateRange = this.getCurrentWeek();
         this.reload();
     }
