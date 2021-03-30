@@ -119,5 +119,36 @@
     }
   ],
   "timesheet": [
+    {
+      "id": 1,
+      "user_id": "vargwin",
+      "week_start_date": "29-MAR-2021",
+      "data": [
+        {
+          "work_item_id": "item-11",
+          "29-MAR-2021": "5",
+          "30-MAR-2021": "10",
+          "31-MAR-2021": "9",
+          "01-APR-2021": 0,
+          "02-APR-2021": 0
+        },
+        {
+          "work_item_id": "office-work",
+          "29-MAR-2021": 0,
+          "30-MAR-2021": 0,
+          "31-MAR-2021": 0,
+          "01-APR-2021": 0,
+          "02-APR-2021": 0
+        },
+        {
+          "work_item_id": "hello-world",
+          "29-MAR-2021": 0,
+          "30-MAR-2021": 0,
+          "31-MAR-2021": 0,
+          "01-APR-2021": 0,
+          "02-APR-2021": 0
+        }
+      ]
+    }
   ]
 }

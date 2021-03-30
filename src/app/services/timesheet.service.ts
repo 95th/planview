@@ -8,6 +8,10 @@ import { AuthService } from './auth.service';
 export class TimesheetService {
     constructor(private http: HttpClient, private auth: AuthService) {}
 
+    async getAllTimesheets(): Promise<Timesheet[]> {
+        return await this.http.get<Timesheet[]>('/api/timesheet').toPromise();
+    }
+
     async getTimesheet(week_start_date: Date): Promise<Timesheet> {
         const timesheets = await this.http
             .get<Timesheet[]>('/api/timesheet', {

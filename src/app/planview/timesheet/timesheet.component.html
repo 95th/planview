@@ -24,7 +24,7 @@
         </table>
         <mat-hint *ngIf="!loading && timesheet.data.length === 0">No work items assigned.</mat-hint>
     </mat-card-content>
-    <mat-card-actions class="button" *ngIf="!loading">
+    <mat-card-actions class="button" *ngIf="!loading && timesheet.data.length > 0">
         <button mat-button color="primary" (click)="saveTimesheet()">Save</button>
         <button mat-button (click)="reload()">Reset</button>
     </mat-card-actions>

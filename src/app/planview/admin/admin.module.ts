@@ -7,9 +7,10 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { DeleteUserDialogComponent } from './users/delete-user-dialog/delete-user-dialog.component';
 import { EditUserDialogComponent } from './users/edit-user-dialog/edit-user-dialog.component';
 import { UsersComponent } from './users/users.component';
+import { SubmittedTimesheetsComponent } from './submitted-timesheets/submitted-timesheets.component';
 
 @NgModule({
-    declarations: [DashboardComponent, UsersComponent, DeleteUserDialogComponent, EditUserDialogComponent],
+    declarations: [DashboardComponent, UsersComponent, DeleteUserDialogComponent, EditUserDialogComponent, SubmittedTimesheetsComponent],
     imports: [CommonModule, AdminRoutingModule, SharedModule, ImportsModule],
 })
 export class AdminModule {}
