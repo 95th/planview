@@ -1,21 +1,14 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { RequestLog } from '../model/request-log';
 import { AuthService } from './auth.service';
-
-interface RequestLogData {
-    id: number;
-    user_id: string;
-    url: string;
-    url_with_query?: string;
-    timestamp: string;
-}
 
 @Injectable({ providedIn: 'root' })
 export class LoggingService {
     constructor(private http: HttpClient, private auth: AuthService) {}
 
     async log_request(url: string, url_with_query: string) {
-        const data: RequestLogData = {
+        const data: RequestLog = {
             id: 0,
             user_id: this.auth.username,
             url,
