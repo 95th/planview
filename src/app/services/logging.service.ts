@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { DateAdapter } from '@angular/material/core';
-import { RequestLog } from '../model/request-log';
+import { RequestLog, RequestLogAggregate } from '../model/request-log';
 import { dateToString } from '../util/date.util';
 import { AuthService } from './auth.service';
 
@@ -31,4 +31,40 @@ export class LoggingService {
             })
             .toPromise();
     }
+
+    async getRequestLogsAggregate(weekStart: Date): Promise<RequestLogAggregate[]> {
+        const logs = await this.getRequestLogs(weekStart);
+        return aggregate(logs);
+    }
+}
+
+function aggregate(logs: RequestLog[]): RequestLogAggregate[] {
+    const map = new Map<string, Map<string, number>>();
+    for (const log of logs) {
+        let requests = map.get(log.user_id);
+        if (!requests) {
+            requests = new Map<string, number>();
+            map.set(log.user_id, requests);
+        }
+
+        const count = requests.get(log.url) || 0;
+        requests.set(log.url, count + 1);
+    }
+    const out: RequestLogAggregate[] = [];
+    for (const user_id of map.keys()) {
+        const requests = map.get(user_id);
+        if (!requests) {
+            continue;
+        }
+
+        for (const url of requests.keys()) {
+            const count = requests.get(url) || 0;
+            out.push({
+                user_id: user_id,
+                url,
+                count,
+            });
+        }
+    }
+    return out;
 }

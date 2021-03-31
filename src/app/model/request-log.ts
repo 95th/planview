@@ -6,3 +6,9 @@ export interface RequestLog {
     timestamp: string;
     week_start: string;
 }
+
+export interface RequestLogAggregate {
+    user_id: string;
+    url: string;
+    count: number;
+}
