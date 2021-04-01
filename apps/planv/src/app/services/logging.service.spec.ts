@@ -19,7 +19,7 @@ describe('LoggingService', () => {
         })
     );
 
-    function testService(done: DoneFn, input: RequestLog[], expected: RequestLogAggregate[]) {
+    function testService(done: jest.DoneCallback, input: RequestLog[], expected: RequestLogAggregate[]) {
         const date = new Date();
         service.getRequestLogsAggregate(date).then((logs) => {
             expect(logs).toEqual(expected);
