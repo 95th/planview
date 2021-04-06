@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { Message } from 'model/message';
+import { MessageView } from 'model/message';
 import { MessageService } from 'services/message.service';
 import { ShowMessageComponent } from '../show-message/show-message.component';
 
@@ -10,8 +10,8 @@ import { ShowMessageComponent } from '../show-message/show-message.component';
     styleUrls: ['./messages.component.scss'],
 })
 export class MessagesComponent implements OnInit {
-    messages: Message[] = [];
-    loading = true;
+    messages: MessageView[] = [];
+    loading = false;
 
     constructor(private dialog: MatDialog, private msgService: MessageService) {}
 
@@ -25,7 +25,7 @@ export class MessagesComponent implements OnInit {
         this.loading = false;
     }
 
-    async openMessage(message: Message) {
+    async openMessage(message: MessageView) {
         const dialogRef = this.dialog.open(ShowMessageComponent, {
             width: '400px',
             data: message,

@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, NgForm } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { WorkItem } from 'model/work-item';
 import { WorkType } from 'model/work-type';
 import { WorkService } from 'services/work.service';
 
@@ -17,8 +18,7 @@ export class CreateWorkItemComponent implements OnInit {
 
     constructor(private fb: FormBuilder, private workService: WorkService, private snackbar: MatSnackBar) {
         this.form = this.fb.group({
-            id: [''],
-            description: [''],
+            name: [''],
             type: [''],
         });
     }
@@ -30,11 +30,16 @@ export class CreateWorkItemComponent implements OnInit {
     async create() {
         try {
             this.showError = false;
-            const id = this.form.value.id;
-            await this.workService.createItem(this.form.value);
+            const name = this.form.value.name;
+            const item: WorkItem = {
+                id: 0,
+                name,
+                workType: this.form.value.type,
+            };
+            await this.workService.createItem(item);
             this.formDirective.resetForm();
             this.form.reset();
-            this.snackbar.open(`Work Item '${id}' created`, 'Dismiss', {
+            this.snackbar.open(`Work Item '${name}' created`, 'Dismiss', {
                 duration: 2000,
             });
         } catch (err) {

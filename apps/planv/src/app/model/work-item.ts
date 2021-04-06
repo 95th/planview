@@ -1,5 +1,7 @@
+import { WorkType } from './work-type';
+
 export interface WorkItem {
-    id: string;
-    description: string;
-    type: string;
+    id: number;
+    name: string;
+    workType: WorkType;
 }

@@ -9,7 +9,7 @@ import { TimesheetService } from 'services/timesheet.service';
 })
 export class SubmittedTimesheetsComponent {
     timesheets: Timesheet[] = [];
-    displayedColumns: string[] = ['name', 'week_start'];
+    displayedColumns: string[] = ['name', 'workItemName', 'weekStartDate'];
     loading = false;
 
     constructor(private timesheetService: TimesheetService) {

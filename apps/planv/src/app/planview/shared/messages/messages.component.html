@@ -13,7 +13,7 @@
         <mat-action-list role="list" *ngIf="messages.length">
             <button mat-list-item role="listitem" *ngFor="let m of messages" (click)="openMessage(m)">
                 <mat-icon matListIcon>email</mat-icon>
-                <h4 matLine>{{ m.sender }}</h4>
+                <h4 matLine>{{ m.senderName }}</h4>
                 <p matLine>
                     <span>{{ m.subject }} : {{ m.date | date }}</span>
                 </p>

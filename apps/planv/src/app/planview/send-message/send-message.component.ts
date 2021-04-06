@@ -6,6 +6,7 @@ import { MatInput } from '@angular/material/input';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
 import { Message } from 'model/message';
+import { UserView } from 'model/user';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { AuthService } from 'services/auth.service';
@@ -18,8 +19,8 @@ import { MessageService } from 'services/message.service';
 })
 export class SendMessageComponent implements OnInit {
     form: FormGroup;
-    users: string[] = [];
-    filteredUsers: Observable<string[]>;
+    users: UserView[] = [];
+    filteredUsers: Observable<UserView[]>;
     recipientInputField: FormControl;
 
     @ViewChild('chipInput') chipInput!: ElementRef<HTMLInputElement>;
@@ -49,8 +50,7 @@ export class SendMessageComponent implements OnInit {
     }
 
     async ngOnInit() {
-        const users = await this.auth.getUsers();
-        this.users = users.map((u) => u.id);
+        this.users = await this.auth.getUsers();
         this.route.paramMap.subscribe((params) => {
             if (params.has('to') && params.has('subject')) {
                 this.recipientList.push(this.fb.control(params.get('to')));
@@ -79,19 +79,20 @@ export class SendMessageComponent implements OnInit {
     }
 
     selectedRecipient(event: MatAutocompleteSelectedEvent) {
-        const value = event.option.viewValue;
+        const value = event.option.value;
         this._addRecipient(value);
         this.chipInput.nativeElement.value = '';
         this.recipientInputField.setValue(null);
     }
 
     async send() {
-        const date = new Date().toUTCString();
-        for (const recipient of this.recipientList.value) {
+        const date = new Date().toISOString();
+        for (const recipientName of this.recipientList.value) {
+            const recipient = this.users.find((u) => u.userName == recipientName);
             const message: Message = {
                 id: 0,
-                recipient,
-                sender: this.auth.username,
+                recipient: recipient.id,
+                sender: this.auth.userId,
                 subject: this.form.value.subject,
                 body: this.form.value.message,
                 date,
@@ -106,15 +107,25 @@ export class SendMessageComponent implements OnInit {
         this.snackbar.open('Message sent', 'Dismiss', { duration: 2000 });
     }
 
-    private _addRecipient(value: string) {
-        if (value && this.users.includes(value) && !this.recipientList.value.includes(value)) {
-            this.recipientList.push(this.fb.control(value));
+    private _addRecipient(userName: string) {
+        if (!userName) {
+            return;
         }
+
+        if (this.users.findIndex((u) => u.userName === userName) === -1) {
+            return;
+        }
+
+        if (this.recipientList.value.includes(userName)) {
+            return;
+        }
+
+        this.recipientList.push(this.fb.control(userName));
     }
 
     private _filter(value: string) {
         const filterValue = value.toLowerCase();
-        return this.users.filter((u) => u.toLowerCase().indexOf(filterValue) >= 0);
+        return this.users.filter((u) => u.userName.toLowerCase().indexOf(filterValue) >= 0);
     }
 
     arrayNotEmpty(c: AbstractControl) {

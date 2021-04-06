@@ -15,19 +15,18 @@ export class CreateWorkTypeComponent {
 
     constructor(private fb: FormBuilder, private workService: WorkService, private snackbar: MatSnackBar) {
         this.form = this.fb.group({
-            id: [''],
-            description: [''],
+            name: [''],
         });
     }
 
     async create() {
         try {
             this.showError = false;
-            const id = this.form.value.id;
-            await this.workService.createType(this.form.value);
+            const name = this.form.value.name;
+            await this.workService.createType({ id: 0, name });
             this.formDirective.resetForm();
             this.form.reset();
-            this.snackbar.open(`Work type '${id}' created`, 'Dismiss', {
+            this.snackbar.open(`Work type ${name} is created`, 'Dismiss', {
                 duration: 2000,
             });
         } catch (err) {

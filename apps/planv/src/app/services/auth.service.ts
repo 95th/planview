@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { LoginInfo } from 'model/login-info';
-import { User } from 'model/user';
+import { JwtHelperService } from '@auth0/angular-jwt';
+import { LoginDetails } from 'model/login-details';
+import { User, UserRole, UserView } from 'model/user';
 
 export enum LoginStatus {
     Ok,
@@ -9,78 +10,63 @@ export enum LoginStatus {
     Locked,
 }
 
+const TOKEN_KEY = 'access_token';
+
 @Injectable({
     providedIn: 'root',
 })
 export class AuthService {
-    constructor(private http: HttpClient) {}
+    constructor(private http: HttpClient, private jwtHelper: JwtHelperService) {}
 
-    async loginUser(info: LoginInfo): Promise<LoginStatus> {
+    async loginUser(info: LoginDetails): Promise<LoginStatus> {
         try {
-            // I know it's bad but we dont have a real backend here.
-            const user = await this.http.get<User>(`/api/users/${info.username}`).toPromise();
-
-            if (!user.locked && user.password === info.password) {
-                if (user.failed_tries > 0) {
-                    user.failed_tries = 0;
-                    await this.http.put(`/api/users/${user.id}`, user).toPromise();
-                }
-
-                localStorage.setItem('username', info.username);
-                localStorage.setItem('role', user.role); // Again it's bad!!
-                return LoginStatus.Ok;
-            }
-
-            user.failed_tries++;
-            if (user.failed_tries >= 3) {
-                user.locked = true;
-            }
-
-            await this.http.put(`/api/users/${user.id}`, user).toPromise();
-
-            if (user.locked) {
-                return LoginStatus.Locked;
-            }
-        } catch (err) {}
-
-        return LoginStatus.Failed;
+            const token = await this.http
+                .post<string>('/api/auth/login', info, { responseType: 'text' as 'json' })
+                .toPromise();
+            localStorage.setItem(TOKEN_KEY, token);
+            return LoginStatus.Ok;
+        } catch (err) {
+            return err.locked ? LoginStatus.Locked : LoginStatus.Failed;
+        }
     }
 
-    get username(): string {
-        return localStorage.getItem('username') || '';
+    private get parsedToken(): { sub: string; id: number; role: string } | null {
+        const token = localStorage.getItem(TOKEN_KEY);
+        if (token) {
+            return this.jwtHelper.decodeToken(token);
+        }
+        return null;
+    }
+
+    get userId(): number | undefined {
+        return this.parsedToken?.id;
     }
 
     private get role(): string {
-        return localStorage.getItem('role') || '';
+        return this.parsedToken?.role || '';
     }
 
     logoutUser() {
-        localStorage.setItem('username', '');
-        localStorage.setItem('role', 'regular');
+        localStorage.removeItem(TOKEN_KEY);
     }
 
-    async createUser(user: User): Promise<User> {
-        return await this.http.post<User>('/api/users', user).toPromise();
+    async registerUser(user: User): Promise<void> {
+        await this.http.post('/api/auth/register', user).toPromise();
     }
 
-    async getUsers(): Promise<User[]> {
-        const users = await this.http.get<User[]>('/api/users').toPromise();
-        return users.filter((u) => u.id !== this.username);
+    async getUsers(): Promise<UserView[]> {
+        return await this.http.get<UserView[]>('/api/user').toPromise();
     }
 
-    async updateUser(user: User) {
-        await this.http.put(`/api/users/${user.id}`, user).toPromise();
+    async updateUser(user: UserView): Promise<UserView> {
+        return await this.http.put<UserView>(`/api/user`, user).toPromise();
     }
 
-    async deleteUser(user: User) {
-        await this.http.delete(`/api/users/${user.id}`).toPromise();
+    async deleteUser(userId: number): Promise<void> {
+        await this.http.delete(`/api/user/${userId}`).toPromise();
     }
 
-    isLoggedIn(): boolean {
-        return this.username ? true : false;
-    }
-
-    isAdmin(): boolean {
-        return this.role === 'admin';
+    get isAdmin(): boolean {
+        return this.role === UserRole.ADMIN;
     }
 }

@@ -19,7 +19,7 @@ export class WorkItemComponent implements OnInit {
 
     async reload() {
         this.loading = true;
-        this.items = await this.workService.getAssignedItems();
+        this.items = await this.workService.getAssignments();
         this.loading = false;
     }
 }

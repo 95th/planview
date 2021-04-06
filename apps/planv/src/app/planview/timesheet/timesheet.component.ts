@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { DateAdapter } from '@angular/material/core';
 import { DateRange } from '@angular/material/datepicker';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Timesheet, TimesheetRecord } from 'model/timesheet';
+import { Timesheet } from 'model/timesheet';
 import { TimesheetService } from 'services/timesheet.service';
 import { WorkService } from 'services/work.service';
 import { dateToString } from 'util/date.util';
@@ -16,14 +16,22 @@ export class TimesheetComponent {
     dateRange: DateRange<Date>;
     loading = false;
 
-    timesheet: Timesheet = {
-        id: 0,
-        user_id: '',
-        week_start_date: '',
-        data: [],
-    };
-    columns: string[] = [];
-    displayedColumns: string[] = [];
+    timesheets: Timesheet[] = [];
+    readonly columns: { name: string; label: string }[] = [
+        { name: 'hoursMonday', label: 'Mon' },
+        { name: 'hoursTuesday', label: 'Tue' },
+        { name: 'hoursWednesday', label: 'Wed' },
+        { name: 'hoursThursday', label: 'Thu' },
+        { name: 'hoursFriday', label: 'Fri' },
+    ];
+    readonly displayedColumns: string[] = [
+        'workItemName',
+        'hoursMonday',
+        'hoursTuesday',
+        'hoursWednesday',
+        'hoursThursday',
+        'hoursFriday',
+    ];
 
     constructor(
         private dateAdapter: DateAdapter<Date>,
@@ -37,37 +45,34 @@ export class TimesheetComponent {
 
     async reload() {
         this.loading = true;
+
         const start = this.dateRange.start || new Date();
-        this.columns = [];
-        for (let i = 0; i < 5; i++) {
-            const d = this.dateAdapter.addCalendarDays(start, i);
-            this.columns.push(dateToString(d));
-        }
-        this.displayedColumns = ['work_item_name', ...this.columns];
+        this.timesheets = await this.timesheetService.getTimesheets(start);
+        const assignments = await this.workService.getAssignments();
 
-        this.timesheet = await this.timesheetService.getTimesheet(start);
-        const assignedItems = await this.workService.getAssignedItems();
-
-        for (const assignedItem of assignedItems) {
-            if (this.timesheet.data.findIndex((record) => record.work_item_id === assignedItem.work_item_id) !== -1) {
+        for (const assignment of assignments) {
+            if (this.timesheets.findIndex((t) => t.assignment.workItem.id === assignment.workItem.id) !== -1) {
                 continue;
             }
 
-            const obj: TimesheetRecord = {
-                work_item_id: assignedItem.work_item_id,
+            const timesheet = {
+                id: 0,
+                assignment,
+                weekStartDate: dateToString(start),
+                hoursMonday: 0,
+                hoursTuesday: 0,
+                hoursWednesday: 0,
+                hoursThursday: 0,
+                hoursFriday: 0,
             };
 
-            for (const col of this.columns) {
-                obj[col] = 0;
-            }
-
-            this.timesheet.data.push(obj);
+            this.timesheets.push(timesheet);
         }
         this.loading = false;
     }
 
     async saveTimesheet() {
-        this.timesheet = await this.timesheetService.saveTimesheet(this.timesheet);
+        this.timesheets = await this.timesheetService.saveTimesheets(this.timesheets);
         this.snackbar.open('Timesheet saved', 'Dismiss', { duration: 2000 });
     }
 

@@ -10,7 +10,7 @@ export class AdminAuthGuard implements CanActivate {
     constructor(private authService: AuthService, private router: Router) {}
 
     canActivate(): boolean | UrlTree | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> {
-        if (this.authService.isLoggedIn() && this.authService.isAdmin()) {
+        if (this.authService.isAdmin) {
             return true;
         }
 

@@ -4,36 +4,36 @@
         <div>
             <mat-form-field appearance="standard">
                 <mat-label>First name</mat-label>
-                <input matInput type="text" formControlName="first_name" required />
+                <input matInput type="text" formControlName="firstName" required />
             </mat-form-field>
             <mat-form-field appearance="standard">
                 <mat-label>Last name</mat-label>
-                <input matInput type="text" formControlName="last_name" required />
+                <input matInput type="text" formControlName="lastName" required />
             </mat-form-field>
         </div>
 
         <div>
             <mat-form-field appearance="standard">
                 <mat-label>Email Address</mat-label>
-                <input matInput formControlName="email" required />
+                <input matInput formControlName="emailId" required />
             </mat-form-field>
             <mat-form-field appearance="standard">
                 <mat-label>Date of birth</mat-label>
-                <input matInput formControlName="date_of_birth" [matDatepicker]="picker" required />
+                <input matInput formControlName="dateOfBirth" [matDatepicker]="picker" required />
                 <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                 <mat-datepicker #picker></mat-datepicker>
             </mat-form-field>
         </div>
 
-        <div formGroupName="address">
+        <div>
             <div>
                 <mat-form-field appearance="standard">
                     <mat-label>Address line 1</mat-label>
-                    <input matInput formControlName="line_1" />
+                    <input matInput formControlName="addressLine1" />
                 </mat-form-field>
                 <mat-form-field appearance="standard">
                     <mat-label>Address line 2</mat-label>
-                    <input matInput formControlName="line_2" />
+                    <input matInput formControlName="addressLine2" />
                 </mat-form-field>
             </div>
 
@@ -63,7 +63,7 @@
         <div>
             <mat-form-field appearance="standard">
                 <mat-label>Username</mat-label>
-                <input matInput formControlName="id" required />
+                <input matInput formControlName="userName" required />
             </mat-form-field>
         </div>
 
@@ -74,11 +74,11 @@
             </mat-form-field>
             <mat-form-field appearance="standard">
                 <mat-label>Confirm password</mat-label>
-                <input matInput type="password" formControlName="password_confirmation" required />
+                <input matInput type="password" formControlName="passwordConfirmation" required />
             </mat-form-field>
         </div>
 
-        <p *ngIf="registrationFailed" class="error">Failed to register: {{ this.form.value.id }}</p>
+        <p *ngIf="registrationFailed" class="error">Failed to register: {{ this.form.value.userName }}</p>
 
         <button mat-raised-button type="submit" [disabled]="!form.valid">Register</button>
     </form>

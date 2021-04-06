@@ -19,7 +19,7 @@ export class NavComponent implements OnInit {
             { label: 'Message', url: 'send-message' },
         ];
 
-        if (this.auth.isAdmin()) {
+        if (this.auth.isAdmin) {
             this.links.push({ label: 'Admin Dashboard', url: 'admin/dashboard' });
             this.links.push({
                 label: 'Work Type',

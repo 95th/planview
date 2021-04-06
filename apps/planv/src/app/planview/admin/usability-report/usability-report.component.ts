@@ -1,13 +1,8 @@
 import { Component } from '@angular/core';
 import { DateAdapter } from '@angular/material/core';
 import { DateRange } from '@angular/material/datepicker';
+import { ApiLogAggregate } from 'model/api-log';
 import { LoggingService } from 'services/logging.service';
-
-interface RequestLogAggregate {
-    user_id: string;
-    url: string;
-    count: number;
-}
 
 @Component({
     selector: 'planv-usability-report',
@@ -17,9 +12,9 @@ interface RequestLogAggregate {
 export class UsabilityReportComponent {
     dateRange: DateRange<Date>;
     loading = false;
-    logs: RequestLogAggregate[] = [];
+    logs: ApiLogAggregate[] = [];
 
-    displayedColumns: string[] = ['user_id', 'url', 'count'];
+    displayedColumns: string[] = ['userName', 'url', 'count'];
 
     constructor(private dateAdapter: DateAdapter<Date>, private logService: LoggingService) {
         this.dateRange = this.getCurrentWeek();
@@ -29,7 +24,8 @@ export class UsabilityReportComponent {
     async reload() {
         this.loading = true;
         const weekStart = this.dateRange.start || new Date();
-        this.logs = await this.logService.getRequestLogsAggregate(weekStart);
+        const weekEnd = this.dateAdapter.addCalendarDays(weekStart, 4);
+        this.logs = await this.logService.getLogs(weekStart, weekEnd);
         this.loading = false;
     }
 

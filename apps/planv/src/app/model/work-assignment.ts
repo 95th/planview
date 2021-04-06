@@ -1,5 +1,7 @@
+import { WorkItem } from './work-item';
+
 export interface WorkAssignment {
     id: number;
-    user_id: string;
-    work_item_id: string;
+    userId: number;
+    workItem: WorkItem;
 }

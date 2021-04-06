@@ -1,21 +1,31 @@
-export type UserRole = 'admin' | 'regular';
+export enum UserRole {
+    ADMIN = 'ADMIN',
+    USER = 'USER',
+}
 
 export interface User {
-    first_name: string;
-    last_name: string;
-    date_of_birth: string;
-    email: string;
-    address: {
-        line_1?: string;
-        line_2?: string;
-        city: string;
-        state: string;
-        country: string;
-        zip: string;
-    };
-    id: string;
+    id: number;
+    firstName: string;
+    lastName: string;
+    dateOfBirth: string;
+    emailId: string;
+    addressLine1?: string;
+    addressLine2?: string;
+    city: string;
+    state: string;
+    country: string;
+    zip: string;
+    userName: string;
     password: string;
     role: UserRole;
     locked: boolean;
-    failed_tries: number;
+    failedTries: number;
+}
+
+export interface UserView {
+    id: number;
+    userName: string;
+    emailId: string;
+    admin: boolean;
+    locked: boolean;
 }

@@ -1,20 +1,14 @@
 <form role="form" [formGroup]="form" (ngSubmit)="onSave()">
     <h1 mat-dialog-title>Edit user</h1>
     <mat-dialog-content>
-        <div>
-            <mat-form-field appearance="standard">
-                <mat-label>Role</mat-label>
-                <mat-select formControlName="role" required>
-                    <mat-option value="admin">Administrator</mat-option>
-                    <mat-option value="regular">Regular</mat-option>
-                </mat-select>
-            </mat-form-field>
+        <div style="margin: 10px">
+            <mat-checkbox matInput formControlName="admin">Administrator</mat-checkbox>
         </div>
 
         <div>
             <mat-form-field appearance="standard">
                 <mat-label>Email</mat-label>
-                <input matInput formControlName="email" required />
+                <input matInput formControlName="emailId" required />
             </mat-form-field>
         </div>
     </mat-dialog-content>

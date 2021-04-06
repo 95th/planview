@@ -2,7 +2,7 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { User } from 'model/user';
+import { UserView } from 'model/user';
 import { AuthService } from 'services/auth.service';
 import { DeleteUserDialogComponent } from './delete-user-dialog/delete-user-dialog.component';
 import { EditUserDialogComponent } from './edit-user-dialog/edit-user-dialog.component';
@@ -21,9 +21,9 @@ import { EditUserDialogComponent } from './edit-user-dialog/edit-user-dialog.com
 })
 export class UsersComponent implements OnInit {
     loading = true;
-    displayedColumns: string[] = ['id', 'name', 'admin', 'locked'];
-    users: User[] = [];
-    expandedUser: User | null = null;
+    displayedColumns: string[] = ['name', 'email', 'admin', 'locked'];
+    users: UserView[] = [];
+    expandedUser: UserView | null = null;
 
     constructor(private auth: AuthService, public dialog: MatDialog, private snackbar: MatSnackBar) {}
 
@@ -71,16 +71,15 @@ export class UsersComponent implements OnInit {
         }
 
         if (!this.expandedUser.locked) {
-            this.snackbar.open(`${this.expandedUser.id} is already unlocked`, 'Dismiss', {
+            this.snackbar.open(`${this.expandedUser.userName} is already unlocked`, 'Dismiss', {
                 duration: 2000,
             });
             return;
         }
 
         this.expandedUser.locked = false;
-        this.expandedUser.failed_tries = 0;
         await this.auth.updateUser(this.expandedUser);
-        this.snackbar.open(`${this.expandedUser.id} is now unlocked`, 'Dismiss', {
+        this.snackbar.open(`${this.expandedUser.userName} is unlocked`, 'Dismiss', {
             duration: 2000,
         });
     }

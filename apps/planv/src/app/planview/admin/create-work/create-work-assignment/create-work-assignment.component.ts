@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, NgForm } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { UserView } from 'model/user';
 import { WorkAssignment } from 'model/work-assignment';
 import { WorkItem } from 'model/work-item';
 import { AuthService } from 'services/auth.service';
@@ -15,8 +16,8 @@ export class CreateWorkAssignmentComponent implements OnInit {
     form: FormGroup;
     @ViewChild('formDirective') formDirective!: NgForm;
 
-    users: string[] = [];
-    work_items: WorkItem[] = [];
+    users: UserView[] = [];
+    workItems: WorkItem[] = [];
 
     constructor(
         private fb: FormBuilder,
@@ -25,26 +26,27 @@ export class CreateWorkAssignmentComponent implements OnInit {
         private snackbar: MatSnackBar
     ) {
         this.form = this.fb.group({
-            user_id: [''],
-            work_items: [''],
+            userId: [''],
+            workItems: [''],
         });
     }
 
     async ngOnInit() {
-        const users = await this.auth.getUsers();
-        this.users = users.map((u) => u.id);
-        this.work_items = await this.workService.getItems();
+        this.users = await this.auth.getUsers();
+        this.workItems = await this.workService.getItems();
     }
 
     async create() {
-        const { user_id, work_items } = this.form.value;
-        const assignments: WorkAssignment[] = work_items.map((work_item_id: string) => {
-            return {
+        const { userId, workItems } = this.form.value;
+        const assignments: WorkAssignment[] = [];
+
+        for (const workItem of workItems) {
+            assignments.push({
                 id: 0,
-                user_id,
-                work_item_id,
-            };
-        });
+                userId,
+                workItem,
+            });
+        }
 
         await this.workService.createAssignments(assignments);
         this.formDirective.resetForm();

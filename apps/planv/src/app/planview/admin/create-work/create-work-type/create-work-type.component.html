@@ -6,17 +6,11 @@
         <form [formGroup]="form" #formDirective="ngForm" (ngSubmit)="create()">
             <p>
                 <mat-form-field appearance="standard">
-                    <mat-label>Type Code</mat-label>
-                    <input type="text" matInput formControlName="id" required autocomplete="off" />
+                    <mat-label>Type Name</mat-label>
+                    <input matInput type="text" formControlName="name" required>
                 </mat-form-field>
             </p>
-            <p>
-                <mat-form-field appearance="standard">
-                    <mat-label>Type Description</mat-label>
-                    <textarea matInput formControlName="description" cdkTextareaAutosize required></textarea>
-                </mat-form-field>
-            </p>
-            <div class="error" *ngIf="showError">Failed to create work type for {{ form.value.id }}</div>
+            <div class="error" *ngIf="showError">Failed to create work type for {{ form.value.name }}</div>
             <div class="button">
                 <button type="submit" mat-button [disabled]="form.invalid">Create</button>
             </div>

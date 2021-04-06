@@ -25,8 +25,8 @@
                     </mat-chip-list>
 
                     <mat-autocomplete #chipAutocomplete="matAutocomplete" (optionSelected)="selectedRecipient($event)">
-                        <mat-option *ngFor="let user of filteredUsers | async" [value]="user">
-                            {{ user }}
+                        <mat-option *ngFor="let user of filteredUsers | async" [value]="user.userName">
+                            {{ user.userName }}
                         </mat-option>
                     </mat-autocomplete>
                 </mat-form-field>

@@ -15,21 +15,19 @@ export class RegistrationComponent {
     constructor(private fb: FormBuilder, private auth: AuthService, private router: Router) {
         this.form = this.fb.group(
             {
-                first_name: ['', Validators.pattern(/[a-zA-Z ]/)],
-                last_name: ['', Validators.pattern(/[a-zA-Z ]/)],
-                date_of_birth: ['', this.checkPastDate],
-                email: ['', Validators.email],
-                address: this.fb.group({
-                    line_1: [''],
-                    line_2: [''],
-                    city: ['', Validators.pattern(/[a-zA-Z ]/)],
-                    state: ['', Validators.pattern(/[a-zA-Z ]/)],
-                    country: ['', Validators.pattern(/[a-zA-Z ]/)],
-                    zip: [''],
-                }),
-                id: ['', [Validators.pattern(/[a-zA-Z0-9]/), Validators.minLength(3)]],
+                firstName: ['', Validators.pattern(/[a-zA-Z ]/)],
+                lastName: ['', Validators.pattern(/[a-zA-Z ]/)],
+                dateOfBirth: ['', this.checkPastDate],
+                emailId: ['', Validators.email],
+                addressLine1: [''],
+                addressLine2: [''],
+                city: ['', Validators.pattern(/[a-zA-Z ]/)],
+                state: ['', Validators.pattern(/[a-zA-Z ]/)],
+                country: ['', Validators.pattern(/[a-zA-Z ]/)],
+                zip: [''],
+                userName: ['', [Validators.pattern(/[a-zA-Z0-9]/), Validators.minLength(3)]],
                 password: ['', Validators.minLength(6)],
-                password_confirmation: [''],
+                passwordConfirmation: [''],
             },
             { validators: this.checkPasswords }
         );
@@ -40,11 +38,11 @@ export class RegistrationComponent {
     async onSubmit() {
         try {
             this.registrationFailed = false;
-            const user = await this.auth.createUser(this.form.value);
+            await this.auth.registerUser(this.form.value);
 
             await this.auth.loginUser({
-                username: user.id,
-                password: user.password,
+                username: this.form.value.userName,
+                password: this.form.value.password,
             });
 
             await this.router.navigateByUrl('/planview/dashboard');
@@ -55,7 +53,7 @@ export class RegistrationComponent {
 
     private checkPasswords(form: AbstractControl) {
         const password = form.get('password')?.value;
-        const confirmPassword = form.get('password_confirmation')?.value;
+        const confirmPassword = form.get('passwordConfirmation')?.value;
 
         return password === confirmPassword ? null : { notSame: true };
     }

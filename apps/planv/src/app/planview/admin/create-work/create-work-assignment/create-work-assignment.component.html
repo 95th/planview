@@ -7,18 +7,18 @@
             <p>
                 <mat-form-field appearance="standard">
                     <mat-label>User</mat-label>
-                    <mat-select formControlName="user_id">
-                        <mat-option *ngFor="let user of users" [value]="user">{{ user }}</mat-option>
+                    <mat-select formControlName="userId">
+                        <mat-option *ngFor="let user of users" [value]="user.id">{{ user.userName }}</mat-option>
                     </mat-select>
                 </mat-form-field>
             </p>
             <p>
                 <mat-form-field appearance="standard">
                     <mat-label>Work Item</mat-label>
-                    <mat-select formControlName="work_items" multiple>
-                        <mat-option *ngFor="let work_item of work_items" [value]="work_item.id"
-                            >{{ work_item.id }}, Type: {{ work_item.type }}</mat-option
-                        >
+                    <mat-select formControlName="workItems" multiple>
+                        <mat-option *ngFor="let workItem of workItems" [value]="workItem">
+                            {{ workItem.name }} (Type: {{ workItem.workType.name }})
+                        </mat-option>
                     </mat-select>
                 </mat-form-field>
             </p>

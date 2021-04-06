@@ -1,7 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Router } from '@angular/router';
-import { Message } from 'model/message';
+import { MessageView } from 'model/message';
 import { MessageService } from 'services/message.service';
 
 @Component({
@@ -12,7 +12,7 @@ import { MessageService } from 'services/message.service';
 export class ShowMessageComponent {
     constructor(
         private dialogRef: MatDialogRef<ShowMessageComponent>,
-        @Inject(MAT_DIALOG_DATA) public message: Message,
+        @Inject(MAT_DIALOG_DATA) public message: MessageView,
         private messageService: MessageService,
         private router: Router
     ) {}
@@ -22,14 +22,12 @@ export class ShowMessageComponent {
     }
 
     async onReply() {
-        await this.router.navigate([
-            '/planview',
-            'send-message',
-            { to: this.message.sender, subject: 'RE: ' + this.message.subject },
-        ]);
+        const origSubject = this.message.subject;
+        const subject = origSubject.startsWith('RE: ') ? origSubject : 'RE: ' + origSubject;
+        await this.router.navigate(['/planview', 'send-message', { to: this.message.senderName, subject }]);
     }
 
     async onDelete() {
-        await this.messageService.delete(this.message);
+        await this.messageService.delete(this.message.id);
     }
 }
