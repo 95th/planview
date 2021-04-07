@@ -46,7 +46,8 @@ export class TimesheetComponent {
     async reload() {
         this.loading = true;
 
-        const start = this.dateRange.start || new Date();
+        const now = new Date();
+        const start = this.dateRange.start || now;
         this.timesheets = await this.timesheetService.getTimesheets(start);
         const assignments = await this.workService.getAssignments();
 
@@ -64,6 +65,7 @@ export class TimesheetComponent {
                 hoursWednesday: 0,
                 hoursThursday: 0,
                 hoursFriday: 0,
+                lastUpdated: now.toISOString(),
             };
 
             this.timesheets.push(timesheet);

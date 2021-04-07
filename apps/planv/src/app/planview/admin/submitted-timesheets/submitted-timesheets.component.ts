@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Timesheet } from 'model/timesheet';
+import { TimesheetView } from 'model/timesheet';
 import { TimesheetService } from 'services/timesheet.service';
 
 @Component({
@@ -8,8 +8,8 @@ import { TimesheetService } from 'services/timesheet.service';
     styleUrls: ['./submitted-timesheets.component.scss'],
 })
 export class SubmittedTimesheetsComponent {
-    timesheets: Timesheet[] = [];
-    displayedColumns: string[] = ['name', 'workItemName', 'weekStartDate'];
+    timesheets: TimesheetView[] = [];
+    readonly displayedColumns: string[] = ['name', 'workItemName', 'weekStartDate', 'lastUpdated'];
     loading = false;
 
     constructor(private timesheetService: TimesheetService) {

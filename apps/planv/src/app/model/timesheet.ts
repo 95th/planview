@@ -9,4 +9,12 @@ export interface Timesheet {
     hoursWednesday: number;
     hoursThursday: number;
     hoursFriday: number;
+    lastUpdated: string;
+}
+
+export interface TimesheetView {
+    userName: string;
+    workItemName: string;
+    weekStartDate: string;
+    lastUpdated: string;
 }
