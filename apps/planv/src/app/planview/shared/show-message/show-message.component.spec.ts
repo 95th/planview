@@ -3,6 +3,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
+import { JwtModule } from '@auth0/angular-jwt';
 import { ImportsModule } from 'imports/imports.module';
 import { ShowMessageComponent } from './show-message.component';
 
@@ -13,7 +14,13 @@ describe('ShowMessageComponent', () => {
     beforeEach(async () => {
         await TestBed.configureTestingModule({
             declarations: [ShowMessageComponent],
-            imports: [HttpClientTestingModule, RouterTestingModule, ImportsModule, BrowserAnimationsModule],
+            imports: [
+                HttpClientTestingModule,
+                RouterTestingModule,
+                ImportsModule,
+                BrowserAnimationsModule,
+                JwtModule.forRoot({}),
+            ],
             providers: [
                 { provide: MatDialogRef, useValue: {} },
                 { provide: MAT_DIALOG_DATA, useValue: {} },

@@ -11,7 +11,7 @@ describe('LoggingService', () => {
     beforeEach(
         waitForAsync(() => {
             TestBed.configureTestingModule({
-                imports: [HttpClientTestingModule, MatNativeDateModule, JwtModule.forRoot({})],
+                imports: [HttpClientTestingModule, MatNativeDateModule, JwtModule.forRoot({}), JwtModule.forRoot({})],
             });
             httpTestingController = TestBed.inject(HttpTestingController);
             service = TestBed.inject(LoggingService);

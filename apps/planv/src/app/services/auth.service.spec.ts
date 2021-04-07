@@ -1,5 +1,6 @@
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
+import { JwtModule } from '@auth0/angular-jwt';
 import { AuthService } from './auth.service';
 
 describe('AuthService', () => {
@@ -7,7 +8,7 @@ describe('AuthService', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [HttpClientTestingModule],
+            imports: [HttpClientTestingModule, JwtModule.forRoot({})],
         });
         service = TestBed.inject(AuthService);
     });
