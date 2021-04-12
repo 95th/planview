@@ -4,6 +4,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 import { JwtModule } from '@auth0/angular-jwt';
 import { ImportsModule } from 'imports/imports.module';
+import { SharedModule } from 'planview/shared/shared.module';
+import { AdminModule } from '../admin.module';
 import { DashboardComponent } from './dashboard.component';
 
 describe('DashboardComponent', () => {
@@ -18,6 +20,8 @@ describe('DashboardComponent', () => {
                 RouterTestingModule,
                 ImportsModule,
                 BrowserAnimationsModule,
+                SharedModule,
+                AdminModule,
                 JwtModule.forRoot({}),
             ],
         }).compileComponents();
