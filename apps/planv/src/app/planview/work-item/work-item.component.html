@@ -14,7 +14,7 @@
             <mat-list-item role="listitem" *ngFor="let w of items">
                 <mat-icon matListIcon>work</mat-icon>
                 <h4 matLine>{{ w.workItem.name }}</h4>
-                <h4 matLine>Type: {{ w.workItem.workType.name }} </h4>
+                <h4 matLine>Type: {{ w.workItem.workType.name }}</h4>
             </mat-list-item>
         </mat-list>
         <mat-hint *ngIf="!loading && items.length === 0">No Work Items assigned.</mat-hint>
