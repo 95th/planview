@@ -19,6 +19,7 @@ export class AuthService {
     constructor(private http: HttpClient, private jwtHelper: JwtHelperService) {}
 
     async loginUser(info: LoginDetails): Promise<LoginStatus> {
+        this.logoutUser();
         try {
             const token = await this.http
                 .post<string>('/api/auth/login', info, { responseType: 'text' as 'json' })
