@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { DateAdapter } from '@angular/material/core';
 import { DateRange } from '@angular/material/datepicker';
-import { ApiLogAggregate } from 'model/api-log';
+import { ApiLog } from 'model/api-log';
 import { LoggingService } from 'services/logging.service';
 
 @Component({
@@ -12,7 +12,7 @@ import { LoggingService } from 'services/logging.service';
 export class UsabilityReportComponent {
     dateRange: DateRange<Date>;
     loading = false;
-    logs: ApiLogAggregate[] = [];
+    logs: ApiLog[] = [];
 
     displayedColumns: string[] = ['userName', 'url', 'count'];
 

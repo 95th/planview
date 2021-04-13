@@ -6,7 +6,6 @@ import { JwtModule } from '@auth0/angular-jwt';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
-import { HTTP_INTERCEPTORS_PROVIDER } from './http-interceptors';
 import { ImportsModule } from './imports/imports.module';
 import { LoginComponent } from './login/login.component';
 import { RegistrationComponent } from './registration/registration.component';
@@ -27,7 +26,6 @@ export function tokenGetter() {
             config: { tokenGetter },
         }),
     ],
-    providers: [HTTP_INTERCEPTORS_PROVIDER],
     bootstrap: [AppComponent],
 })
 export class AppModule {}
