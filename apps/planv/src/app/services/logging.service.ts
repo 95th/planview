@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ApiLog } from 'model/api-log';
-import { dateToString } from 'util/date.util';
+import { toDatetimeString } from 'util/date.util';
 
 @Injectable({ providedIn: 'root' })
 export class LoggingService {
@@ -11,8 +11,8 @@ export class LoggingService {
         return await this.http
             .get<ApiLog[]>('/api/log/aggregate', {
                 params: {
-                    startDate: dateToString(weekStart),
-                    endDate: dateToString(weekEnd),
+                    startDate: toDatetimeString(weekStart),
+                    endDate: toDatetimeString(weekEnd),
                 },
             })
             .toPromise();

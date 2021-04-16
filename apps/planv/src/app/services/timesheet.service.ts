@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Timesheet, TimesheetView } from 'model/timesheet';
-import { dateToString } from 'util/date.util';
+import { toDateString } from 'util/date.util';
 
 @Injectable({ providedIn: 'root' })
 export class TimesheetService {
@@ -15,7 +15,7 @@ export class TimesheetService {
         return await this.http
             .get<Timesheet[]>('/api/timesheet', {
                 params: {
-                    weekStartDate: dateToString(weekStartDate),
+                    weekStartDate: toDateString(weekStartDate),
                 },
             })
             .toPromise();

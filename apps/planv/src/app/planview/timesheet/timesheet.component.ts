@@ -5,7 +5,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Timesheet } from 'model/timesheet';
 import { TimesheetService } from 'services/timesheet.service';
 import { WorkService } from 'services/work.service';
-import { dateToString } from 'util/date.util';
+import { toDateString } from 'util/date.util';
 
 @Component({
     selector: 'planv-timesheet',
@@ -59,7 +59,7 @@ export class TimesheetComponent {
             const timesheet = {
                 id: 0,
                 assignment,
-                weekStartDate: dateToString(start),
+                weekStartDate: toDateString(start),
                 hoursMonday: 0,
                 hoursTuesday: 0,
                 hoursWednesday: 0,
