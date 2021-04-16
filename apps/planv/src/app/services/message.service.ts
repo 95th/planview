@@ -8,8 +8,8 @@ import { Message, MessageView } from 'model/message';
 export class MessageService {
     constructor(private http: HttpClient) {}
 
-    async getMessages(): Promise<MessageView[]> {
-        return await this.http.get<MessageView[]>('/api/message').toPromise();
+    async getInbox(): Promise<MessageView[]> {
+        return await this.http.get<MessageView[]>('/api/message/inbox').toPromise();
     }
 
     async send(message: Message) {

@@ -92,7 +92,7 @@ export class SendMessageComponent implements OnInit {
             const message: Message = {
                 id: 0,
                 recipient: recipient.id,
-                sender: this.auth.userId,
+                sender: 0,
                 subject: this.form.value.subject,
                 body: this.form.value.message,
                 date,

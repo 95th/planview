@@ -21,7 +21,7 @@ export class MessagesComponent implements OnInit {
 
     async reload() {
         this.loading = true;
-        this.messages = await this.msgService.getMessages();
+        this.messages = await this.msgService.getInbox();
         this.loading = false;
     }
 
