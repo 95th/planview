@@ -47,10 +47,15 @@
                         "main": "apps/planv/src/main.ts",
                         "polyfills": "apps/planv/src/polyfills.ts",
                         "tsConfig": "apps/planv/tsconfig.app.json",
-                        "aot": true,
                         "assets": ["apps/planv/src/favicon.ico", "apps/planv/src/assets"],
                         "styles": ["apps/planv/src/styles.scss"],
-                        "scripts": []
+                        "scripts": [],
+                        "vendorChunk": true,
+                        "extractLicenses": false,
+                        "buildOptimizer": false,
+                        "sourceMap": true,
+                        "optimization": false,
+                        "namedChunks": true
                     },
                     "configurations": {
                         "production": {
@@ -80,7 +85,8 @@
                                 }
                             ]
                         }
-                    }
+                    },
+                    "defaultConfiguration": ""
                 },
                 "serve": {
                     "builder": "@angular-devkit/build-angular:dev-server",
