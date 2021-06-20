@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { WorkAssignment } from 'model/work-assignment';
 import { WorkItem } from 'model/work-item';
 import { WorkType } from 'model/work-type';
+import { Observable } from 'rxjs';
 
 @Injectable({
     providedIn: 'root',
@@ -10,27 +11,27 @@ import { WorkType } from 'model/work-type';
 export class WorkService {
     constructor(private http: HttpClient) {}
 
-    async createType(type: WorkType) {
-        return await this.http.post('/api/work/type', type).toPromise();
+    createType(type: WorkType): Observable<void> {
+        return this.http.post<void>('/api/work/type', type);
     }
 
-    async getTypes(): Promise<WorkType[]> {
-        return await this.http.get<WorkType[]>('/api/work/type').toPromise();
+    getTypes(): Observable<WorkType[]> {
+        return this.http.get<WorkType[]>('/api/work/type');
     }
 
-    async createItem(item: WorkItem) {
-        await this.http.post('/api/work/item', item).toPromise();
+    createItem(item: WorkItem): Observable<void> {
+        return this.http.post<void>('/api/work/item', item);
     }
 
-    async getItems(): Promise<WorkItem[]> {
-        return await this.http.get<WorkItem[]>('/api/work/item').toPromise();
+    getItems(): Observable<WorkItem[]> {
+        return this.http.get<WorkItem[]>('/api/work/item');
     }
 
-    async createAssignments(assignments: WorkAssignment[]) {
-        await this.http.post('/api/work/assign', assignments).toPromise();
+    createAssignments(assignments: WorkAssignment[]): Observable<void> {
+        return this.http.post<void>('/api/work/assign', assignments);
     }
 
-    async getAssignments(): Promise<WorkAssignment[]> {
-        return await this.http.get<WorkAssignment[]>('/api/work/assign').toPromise();
+    getAssignments(): Observable<WorkAssignment[]> {
+        return this.http.get<WorkAssignment[]>('/api/work/assign');
     }
 }

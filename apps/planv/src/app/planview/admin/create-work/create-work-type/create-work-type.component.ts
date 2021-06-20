@@ -19,18 +19,20 @@ export class CreateWorkTypeComponent {
         });
     }
 
-    async create() {
-        try {
-            this.showError = false;
-            const name = this.form.value.name;
-            await this.workService.createType({ id: 0, name });
-            this.formDirective.resetForm();
-            this.form.reset();
-            this.snackbar.open(`Work type ${name} is created`, 'Dismiss', {
-                duration: 2000,
-            });
-        } catch (err) {
-            this.showError = true;
-        }
+    create() {
+        this.showError = false;
+        const name = this.form.value.name;
+        this.workService.createType({ id: 0, name }).subscribe({
+            next: () => {
+                this.formDirective.resetForm();
+                this.form.reset();
+                this.snackbar.open(`Work type ${name} is created`, 'Dismiss', {
+                    duration: 2000,
+                });
+            },
+            error: () => {
+                this.showError = true;
+            },
+        });
     }
 }

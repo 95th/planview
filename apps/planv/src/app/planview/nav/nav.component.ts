@@ -40,8 +40,8 @@ export class NavComponent implements OnInit {
         }
     }
 
-    async logout() {
+    logout() {
         this.auth.logoutUser();
-        await this.router.navigateByUrl('/login');
+        this.router.navigateByUrl('/login');
     }
 }

@@ -25,13 +25,13 @@ export class EditUserDialogComponent {
         this.form.patchValue(this.user);
     }
 
-    async onSave() {
+    onSave() {
         const user: UserView = {
             ...this.user,
             admin: this.form.value.admin,
             emailId: this.form.value.emailId,
         };
-        await this.auth.updateUser(user);
+        this.auth.updateUser(user).subscribe();
     }
 
     onCancel() {

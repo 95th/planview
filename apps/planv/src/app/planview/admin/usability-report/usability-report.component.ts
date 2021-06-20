@@ -21,12 +21,14 @@ export class UsabilityReportComponent {
         this.reload();
     }
 
-    async reload() {
+    reload() {
         this.loading = true;
         const weekStart = this.dateRange.start || new Date();
         const weekEnd = this.dateAdapter.addCalendarDays(weekStart, 4);
-        this.logs = await this.logService.getLogs(weekStart, weekEnd);
-        this.loading = false;
+        this.logService.getLogs(weekStart, weekEnd).subscribe((logs) => {
+            this.logs = logs;
+            this.loading = false;
+        });
     }
 
     private getCurrentWeek(): DateRange<Date> {

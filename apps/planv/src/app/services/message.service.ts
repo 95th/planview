@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Message, MessageView } from 'model/message';
+import { Observable } from 'rxjs';
 
 @Injectable({
     providedIn: 'root',
@@ -8,15 +9,15 @@ import { Message, MessageView } from 'model/message';
 export class MessageService {
     constructor(private http: HttpClient) {}
 
-    async getInbox(): Promise<MessageView[]> {
-        return await this.http.get<MessageView[]>('/api/message/inbox').toPromise();
+    getInbox(): Observable<MessageView[]> {
+        return this.http.get<MessageView[]>('/api/message/inbox');
     }
 
-    async send(message: Message) {
-        await this.http.post('/api/message', message).toPromise();
+    send(message: Message): Observable<void> {
+        return this.http.post<void>('/api/message', message);
     }
 
-    async delete(id: number) {
-        await this.http.delete(`/api/message/${id}`).toPromise();
+    delete(id: number): Observable<void> {
+        return this.http.delete<void>(`/api/message/${id}`);
     }
 }

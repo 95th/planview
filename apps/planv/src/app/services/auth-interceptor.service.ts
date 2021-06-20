@@ -7,12 +7,12 @@ import { AuthService } from './auth.service';
 export class AuthInterceptorService implements HttpInterceptor {
     constructor(private auth: AuthService) {}
 
-    intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    intercept(req: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
         req = this.injectAuth(req);
         return next.handle(req);
     }
 
-    private injectAuth(req: HttpRequest<any>) {
+    private injectAuth(req: HttpRequest<unknown>) {
         if (!req.url.startsWith('/api/')) {
             return req;
         }

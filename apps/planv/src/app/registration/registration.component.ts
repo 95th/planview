@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { mergeMap } from 'rxjs/operators';
 import { AuthService } from 'services/auth.service';
 
 @Component({
@@ -35,20 +36,26 @@ export class RegistrationComponent {
         this.form.valueChanges.subscribe(() => (this.registrationFailed = false));
     }
 
-    async onSubmit() {
-        try {
-            this.registrationFailed = false;
-            await this.auth.registerUser(this.form.value);
-
-            await this.auth.loginUser({
-                username: this.form.value.userName,
-                password: this.form.value.password,
+    onSubmit() {
+        this.registrationFailed = false;
+        this.auth
+            .registerUser(this.form.value)
+            .pipe(
+                mergeMap(() =>
+                    this.auth.loginUser({
+                        username: this.form.value.userName,
+                        password: this.form.value.password,
+                    })
+                )
+            )
+            .subscribe({
+                next: () => {
+                    this.router.navigateByUrl('/planview/dashboard');
+                },
+                error: () => {
+                    this.registrationFailed = true;
+                },
             });
-
-            await this.router.navigateByUrl('/planview/dashboard');
-        } catch (err) {
-            this.registrationFailed = true;
-        }
     }
 
     private checkPasswords(form: AbstractControl) {

@@ -16,9 +16,11 @@ export class SubmittedTimesheetsComponent {
         this.reload();
     }
 
-    async reload() {
+    reload() {
         this.loading = true;
-        this.timesheets = await this.timesheetService.getAllTimesheets();
-        this.loading = false;
+        this.timesheetService.getAllTimesheets().subscribe((timesheets) => {
+            this.timesheets = timesheets;
+            this.loading = false;
+        });
     }
 }

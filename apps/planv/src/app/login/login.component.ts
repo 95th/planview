@@ -19,19 +19,20 @@ export class LoginComponent {
         });
     }
 
-    async performLogin() {
+    performLogin() {
         this.loginError = '';
-        const status = await this.auth.loginUser(this.form.value);
-        switch (status) {
-            case LoginStatus.Ok:
-                await this.router.navigateByUrl('/planview/dashboard');
-                break;
-            case LoginStatus.Failed:
-                this.loginError = 'Incorrect username or password';
-                break;
-            case LoginStatus.Locked:
-                this.loginError = 'User is locked. Please contact the administrator';
-                break;
-        }
+        this.auth.loginUser(this.form.value).subscribe((status) => {
+            switch (status) {
+                case LoginStatus.Ok:
+                    this.router.navigateByUrl('/planview/dashboard');
+                    break;
+                case LoginStatus.Failed:
+                    this.loginError = 'Incorrect username or password';
+                    break;
+                case LoginStatus.Locked:
+                    this.loginError = 'User is locked. Please contact the administrator';
+                    break;
+            }
+        });
     }
 }

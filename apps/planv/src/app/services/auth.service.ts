@@ -2,6 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { LoginDetails } from 'model/login-details';
 import { User, UserRole, UserView } from 'model/user';
+import { Observable, of } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
 
 export enum LoginStatus {
     Ok,
@@ -23,16 +25,16 @@ interface AuthResponse {
 export class AuthService {
     constructor(private http: HttpClient) {}
 
-    async loginUser(info: LoginDetails): Promise<LoginStatus> {
+    loginUser(info: LoginDetails): Observable<LoginStatus> {
         this.logoutUser();
-        try {
-            const resp = await this.http.post<AuthResponse>('/api/auth/login', info).toPromise();
-            localStorage.setItem(TOKEN_KEY, resp.token);
-            localStorage.setItem(ROLE_KEY, resp.role);
-            return LoginStatus.Ok;
-        } catch (err) {
-            return err.locked ? LoginStatus.Locked : LoginStatus.Failed;
-        }
+        return this.http.post<AuthResponse>('/api/auth/login', info).pipe(
+            map((resp) => {
+                localStorage.setItem(TOKEN_KEY, resp.token);
+                localStorage.setItem(ROLE_KEY, resp.role);
+                return LoginStatus.Ok;
+            }),
+            catchError((err) => of(err.locked ? LoginStatus.Locked : LoginStatus.Failed))
+        );
     }
 
     get token(): string | null {
@@ -48,20 +50,20 @@ export class AuthService {
         localStorage.removeItem(ROLE_KEY);
     }
 
-    async registerUser(user: User): Promise<void> {
-        await this.http.post('/api/auth/register', user).toPromise();
+    registerUser(user: User): Observable<void> {
+        return this.http.post<void>('/api/auth/register', user);
     }
 
-    async getUsers(): Promise<UserView[]> {
-        return await this.http.get<UserView[]>('/api/user').toPromise();
+    getUsers(): Observable<UserView[]> {
+        return this.http.get<UserView[]>('/api/user');
     }
 
-    async updateUser(user: UserView): Promise<UserView> {
-        return await this.http.put<UserView>(`/api/user`, user).toPromise();
+    updateUser(user: UserView): Observable<UserView> {
+        return this.http.put<UserView>(`/api/user`, user);
     }
 
-    async deleteUser(userId: number): Promise<void> {
-        await this.http.delete(`/api/user/${userId}`).toPromise();
+    deleteUser(userId: number): Observable<void> {
+        return this.http.delete<void>(`/api/user/${userId}`);
     }
 
     get isAdmin(): boolean {

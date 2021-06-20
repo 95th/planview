@@ -37,7 +37,7 @@
 
             <ng-container matColumnDef="expandedDetail">
                 <td mat-cell *matCellDef="let element" [attr.colspan]="displayedColumns.length">
-                    <div class="user-detail" [@detailExpand]="element == expandedUser ? 'expanded' : 'collapsed'">
+                    <div class="user-detail" [@detailExpand]="element === expandedUser ? 'expanded' : 'collapsed'">
                         <div class="user-actions">
                             <button mat-button (click)="editUser()"><mat-icon>mode_edit</mat-icon> Edit</button>
                             <button mat-button (click)="unlockUser()"><mat-icon>lock_open</mat-icon> Unlock</button>

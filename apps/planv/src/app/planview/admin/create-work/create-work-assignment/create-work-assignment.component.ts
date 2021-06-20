@@ -31,12 +31,12 @@ export class CreateWorkAssignmentComponent implements OnInit {
         });
     }
 
-    async ngOnInit() {
-        this.users = await this.auth.getUsers();
-        this.workItems = await this.workService.getItems();
+    ngOnInit() {
+        this.auth.getUsers().subscribe((users) => (this.users = users));
+        this.workService.getItems().subscribe((items) => (this.workItems = items));
     }
 
-    async create() {
+    create() {
         const { userId, workItems } = this.form.value;
         const assignments: WorkAssignment[] = [];
 
@@ -48,11 +48,12 @@ export class CreateWorkAssignmentComponent implements OnInit {
             });
         }
 
-        await this.workService.createAssignments(assignments);
-        this.formDirective.resetForm();
-        this.form.reset();
-        this.snackbar.open('Work assignment created', 'Dismiss', {
-            duration: 2000,
+        this.workService.createAssignments(assignments).subscribe(() => {
+            this.formDirective.resetForm();
+            this.form.reset();
+            this.snackbar.open('Work assignment created', 'Dismiss', {
+                duration: 2000,
+            });
         });
     }
 }

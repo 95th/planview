@@ -15,24 +15,27 @@ export class MessagesComponent implements OnInit {
 
     constructor(private dialog: MatDialog, private msgService: MessageService) {}
 
-    async ngOnInit() {
-        await this.reload();
+    ngOnInit() {
+        this.reload();
     }
 
-    async reload() {
+    reload() {
         this.loading = true;
-        this.messages = await this.msgService.getInbox();
-        this.loading = false;
+        this.msgService.getInbox().subscribe((msgs) => {
+            this.messages = msgs;
+            this.loading = false;
+        });
     }
 
-    async openMessage(message: MessageView) {
+    openMessage(message: MessageView) {
         const dialogRef = this.dialog.open(ShowMessageComponent, {
             width: '400px',
             data: message,
         });
-        const reload = await dialogRef.afterClosed().toPromise();
-        if (reload) {
-            await this.reload();
-        }
+        dialogRef.afterClosed().subscribe((reload) => {
+            if (reload) {
+                this.reload();
+            }
+        });
     }
 }

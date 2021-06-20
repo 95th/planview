@@ -23,27 +23,29 @@ export class CreateWorkItemComponent implements OnInit {
         });
     }
 
-    async ngOnInit() {
-        this.types = await this.workService.getTypes();
+    ngOnInit() {
+        this.workService.getTypes().subscribe((types) => (this.types = types));
     }
 
-    async create() {
-        try {
-            this.showError = false;
-            const name = this.form.value.name;
-            const item: WorkItem = {
-                id: 0,
-                name,
-                workType: this.form.value.type,
-            };
-            await this.workService.createItem(item);
-            this.formDirective.resetForm();
-            this.form.reset();
-            this.snackbar.open(`Work Item '${name}' created`, 'Dismiss', {
-                duration: 2000,
-            });
-        } catch (err) {
-            this.showError = true;
-        }
+    create() {
+        this.showError = false;
+        const name = this.form.value.name;
+        const item: WorkItem = {
+            id: 0,
+            name,
+            workType: this.form.value.type,
+        };
+        this.workService.createItem(item).subscribe({
+            next: () => {
+                this.formDirective.resetForm();
+                this.form.reset();
+                this.snackbar.open(`Work Item '${name}' created`, 'Dismiss', {
+                    duration: 2000,
+                });
+            },
+            error: () => {
+                this.showError = true;
+            },
+        });
     }
 }

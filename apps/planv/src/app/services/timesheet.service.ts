@@ -1,27 +1,26 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Timesheet, TimesheetView } from 'model/timesheet';
+import { Observable } from 'rxjs';
 import { toDateString } from 'util/date.util';
 
 @Injectable({ providedIn: 'root' })
 export class TimesheetService {
     constructor(private http: HttpClient) {}
 
-    async getAllTimesheets(): Promise<TimesheetView[]> {
-        return await this.http.get<TimesheetView[]>('/api/timesheet/all').toPromise();
+    getAllTimesheets(): Observable<TimesheetView[]> {
+        return this.http.get<TimesheetView[]>('/api/timesheet/all');
     }
 
-    async getTimesheets(weekStartDate: Date): Promise<Timesheet[]> {
-        return await this.http
-            .get<Timesheet[]>('/api/timesheet', {
-                params: {
-                    weekStartDate: toDateString(weekStartDate),
-                },
-            })
-            .toPromise();
+    getTimesheets(weekStartDate: Date): Observable<Timesheet[]> {
+        return this.http.get<Timesheet[]>('/api/timesheet', {
+            params: {
+                weekStartDate: toDateString(weekStartDate),
+            },
+        });
     }
 
-    async saveTimesheets(timesheets: Timesheet[]): Promise<Timesheet[]> {
-        return await this.http.post<Timesheet[]>('/api/timesheet', timesheets).toPromise();
+    saveTimesheets(timesheets: Timesheet[]): Observable<Timesheet[]> {
+        return this.http.post<Timesheet[]>('/api/timesheet', timesheets);
     }
 }

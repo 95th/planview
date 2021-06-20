@@ -21,13 +21,13 @@ export class ShowMessageComponent {
         this.dialogRef.close();
     }
 
-    async onReply() {
+    onReply() {
         const origSubject = this.message.subject;
         const subject = origSubject.startsWith('RE: ') ? origSubject : 'RE: ' + origSubject;
-        await this.router.navigate(['/planview', 'send-message', { to: this.message.senderName, subject }]);
+        this.router.navigate(['/planview', 'send-message', { to: this.message.senderName, subject }]);
     }
 
-    async onDelete() {
-        await this.messageService.delete(this.message.id);
+    onDelete() {
+        this.messageService.delete(this.message.id).subscribe();
     }
 }

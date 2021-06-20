@@ -10,7 +10,7 @@ import { AuthService } from 'services/auth.service';
 export class DeleteUserDialogComponent {
     constructor(@Inject(MAT_DIALOG_DATA) public user: UserView, private auth: AuthService) {}
 
-    async onDelete() {
-        await this.auth.deleteUser(this.user.id);
+    onDelete() {
+        this.auth.deleteUser(this.user.id).subscribe();
     }
 }

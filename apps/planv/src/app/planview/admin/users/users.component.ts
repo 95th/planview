@@ -31,13 +31,15 @@ export class UsersComponent implements OnInit {
         this.reload();
     }
 
-    async reload() {
+    reload() {
         this.loading = true;
-        this.users = await this.auth.getUsers();
-        this.loading = false;
+        this.auth.getUsers().subscribe((users) => {
+            this.users = users;
+            this.loading = false;
+        });
     }
 
-    async deleteUser() {
+    deleteUser() {
         if (!this.expandedUser) {
             return;
         }
@@ -45,13 +47,15 @@ export class UsersComponent implements OnInit {
             width: '300px',
             data: this.expandedUser,
         });
-        const deleted = await dialogRef.afterClosed().toPromise();
-        if (deleted) {
-            await this.reload();
-        }
+
+        dialogRef.afterClosed().subscribe((deleted) => {
+            if (deleted) {
+                this.reload();
+            }
+        });
     }
 
-    async editUser() {
+    editUser() {
         if (!this.expandedUser) {
             return;
         }
@@ -59,13 +63,15 @@ export class UsersComponent implements OnInit {
         const dialogRef = this.dialog.open(EditUserDialogComponent, {
             data: this.expandedUser,
         });
-        const updated = await dialogRef.afterClosed().toPromise();
-        if (updated) {
-            await this.reload();
-        }
+
+        dialogRef.afterClosed().subscribe((updated) => {
+            if (updated) {
+                this.reload();
+            }
+        });
     }
 
-    async unlockUser() {
+    unlockUser() {
         if (!this.expandedUser) {
             return;
         }
@@ -78,9 +84,10 @@ export class UsersComponent implements OnInit {
         }
 
         this.expandedUser.locked = false;
-        await this.auth.updateUser(this.expandedUser);
-        this.snackbar.open(`${this.expandedUser.userName} is unlocked`, 'Dismiss', {
-            duration: 2000,
+        this.auth.updateUser(this.expandedUser).subscribe(() => {
+            this.snackbar.open(`${this.expandedUser.userName} is unlocked`, 'Dismiss', {
+                duration: 2000,
+            });
         });
     }
 }

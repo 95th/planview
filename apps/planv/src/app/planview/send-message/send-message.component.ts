@@ -49,8 +49,8 @@ export class SendMessageComponent implements OnInit {
         );
     }
 
-    async ngOnInit() {
-        this.users = await this.auth.getUsers();
+    ngOnInit() {
+        this.auth.getUsers().subscribe((val) => (this.users = val));
         this.route.paramMap.subscribe((params) => {
             if (params.has('to') && params.has('subject')) {
                 this.recipientList.push(this.fb.control(params.get('to')));
@@ -85,7 +85,7 @@ export class SendMessageComponent implements OnInit {
         this.recipientInputField.setValue(null);
     }
 
-    async send() {
+    send() {
         const date = new Date().toISOString();
         for (const recipientName of this.recipientList.value) {
             const recipient = this.users.find((u) => u.userName == recipientName);
@@ -98,7 +98,7 @@ export class SendMessageComponent implements OnInit {
                 date,
             };
 
-            await this.messageService.send(message);
+            this.messageService.send(message).subscribe();
         }
 
         this.recipientList.clear();
